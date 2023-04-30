@@ -4,6 +4,18 @@ class TelaUsuario():
         print("________ Configurações de Usuários ________")
         print("Escolha a opção:")
         #colocar todas as opcoes aqui
+    
+    def seleciona_tipo_usuario(self):
+        opcoes = ["Pessoa Física", "Pessoa Jurídica"]
+        mensagem = "Selecione o tipo de usuário: "
+        return self.__mostra_menu(opcoes, mensagem)
+    
+    def __mostra_menu(self, opcoes, mensagem):
+        print(mensagem)
+        for i, opcao in enumerate(opcoes):
+            print(f"{i+1} - {opcao}")
+        escolha = int(input("Escolha uma opção: "))
+        return opcoes[escolha-1]    
         
     def pega_dados_usuario(self):        
         print("Pessoa Juridica?" )
@@ -22,7 +34,9 @@ class TelaUsuario():
     def mostra_usuario(self, dados_usuario):
         pass
     
-    
+    def mostra_mensagem(self, msg):
+        print(msg)
+        
     def selecionar_usuario(self):
         nome = input("Nome do Usuário que deseja selecionar: ")
         return nome

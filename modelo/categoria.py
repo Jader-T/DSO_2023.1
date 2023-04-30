@@ -1,3 +1,5 @@
+
+
 class Categoria:
     def __init__(self, tipo: str, opcoes: enumerate):
         if isinstance (tipo, str):
@@ -10,7 +12,7 @@ class Categoria:
         return self.__fone        
     @property
     def opcoes(self, opcoes):
-        return self.__email
+        return self.__opcoes 
     
     @tipo.setter
     def tipo(self, tipo):
