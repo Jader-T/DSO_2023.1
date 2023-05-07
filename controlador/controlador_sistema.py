@@ -1,5 +1,5 @@
-from tela.telaSistema import TelaSistema
-from controle.controladorUsuarios import ControladorUsuários
+from tela.tela_sistema import TelaSistema
+from controlador.controlador_usuario import ControladorUsuários
 
 
 class ControladorSistema:
@@ -14,7 +14,10 @@ class ControladorSistema:
     
     def inicializa_sistema(self):
         self.__abre_tela()
-        
+    #controle de toda a sessão do usuário após ele fazer login no sistema
+    def faz_login(self):
+        pass #finalizar
+    
     def inclui_usuario(self):
         self.__controlador_usuarios.abre_tela()
         
