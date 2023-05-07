@@ -75,3 +75,13 @@ class ControladorUsuários:
     def busca_usuario_por_cpf_ou_cnpj(self, cpf: str, cnpj: str):#ver como tratar a escolha de cpf e cnpj
         pass
     
+    def retornar(self):
+        #self.__controlador_sistema.abre_tela()
+        pass
+    
+    def abre_tela(self):
+        lista_opcoes = {1: self.inclui_usuario, 0: self.retornar}
+        
+        continua = True
+        while continua:
+            lista_opcoes[self.__telaUsuarios.campos_da_tela()]()
