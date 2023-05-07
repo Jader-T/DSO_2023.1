@@ -4,7 +4,6 @@ class Loja:
     def __init__(self, nome: str, site: str):
         self.__nome = nome
         self.__site = site
-        self.__fornecedores = []
 
     @property
     def nome(self):
@@ -23,9 +22,3 @@ class Loja:
     def site(self, site: str):
         if isinstance(site, str):
             self.__nome = site
-
-    def add_fornecedores(self, nome: str):
-        pass
-
-    def rem_fornecedores(self, nome: str):
-        pass
