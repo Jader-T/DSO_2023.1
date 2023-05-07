@@ -3,7 +3,6 @@ from controlador.controlador_usuario import ControladorUsuários
 
 
 class ControladorSistema:
-    
     def __init__(self):
         self.__controlador_usuarios = ControladorUsuários
         self.__tela_sistema = TelaSistema
@@ -13,7 +12,7 @@ class ControladorSistema:
         return self.__controlador_usuarios
     
     def inicializa_sistema(self):
-        self.__abre_tela()
+        self.abre_tela()
     #controle de toda a sessão do usuário após ele fazer login no sistema
     def faz_login(self):
         pass #finalizar
@@ -28,6 +27,7 @@ class ControladorSistema:
         lista_opcoes = {1: self.inclui_usuario, 0: self.encerra_sistema}
         
         while True:
-            opcao_escolhida = self.__tela_sistema.menu_opcoes()
-            funcao_escolhida = lista_opcoes[opcao_escolhida]
-            funcao_escolhida()
+            lista_opcoes[self.__tela_sistema.menu_opcoes()]()
+            #opcao_escolhida = self.__tela_sistema.menu_opcoes
+            #funcao_escolhida = lista_opcoes[opcao_escolhida]
+            #funcao_escolhida()
