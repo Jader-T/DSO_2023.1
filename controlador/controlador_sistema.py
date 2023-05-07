@@ -14,9 +14,9 @@ class ControladorSistema:
     
     def inicializa_sistema(self):
         self.__abre_tela()
-
+    #controle de toda a sessão do usuário após ele fazer login no sistema
     def faz_login(self):
-        pass
+        pass #finalizar
     
     def inclui_usuario(self):
         self.__controlador_usuarios.abre_tela()

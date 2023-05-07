@@ -17,7 +17,7 @@ class ControladorUsuários:
         tipo_usuario = self.__telaUsuarios.seleciona_tipo_usuario() # pergunta se é pessoa física ou jurídica
         dados_usuario = self.__telaUsuarios.pega_dados_usuario()
         
-        if tipo_usuario == "Pessoa Física":
+        if tipo_usuario == "Pessoa Física": #se pessoa fisica
             cpf = dados_usuario["cpf"]
             nome = dados_usuario["nome"]
             telefone = dados_usuario["fone"]
