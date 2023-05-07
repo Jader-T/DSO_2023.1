@@ -1,7 +1,7 @@
-from tela.telaUsuario import TelaUsuario
+from tela.tela_usuario import TelaUsuario
 from modelo.usuario import Usuario
-from modelo.pessoaFisica import PessoaFisica
-from modelo.PessoaJuridica import PessoaJuridica
+from modelo.pessoa_fisica import PessoaFisica
+from modelo.pessoa_juridica import PessoaJuridica
 
 
 class ControladorUsuários:
@@ -9,6 +9,9 @@ class ControladorUsuários:
         self.__usuarios = []
         self.__telaUsuarios = TelaUsuario()
         self.__controlador_sistema = controlador_sistema
+    #metodo para autenticação do usuário    
+    def autentica_usuario(self):
+        pass    
         
     def inclui_usuario(self):
         tipo_usuario = self.__telaUsuarios.seleciona_tipo_usuario() # pergunta se é pessoa física ou jurídica
