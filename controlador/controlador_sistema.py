@@ -3,7 +3,6 @@ from controlador.controlador_usuario import ControladorUsuarios
 
 
 class ControladorSistema:
-    
     def __init__(self):
         self.__controlador_usuarios = ControladorUsuarios(self)
         self.__tela_sistema = TelaSistema()

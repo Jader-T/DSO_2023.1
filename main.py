@@ -1,0 +1,6 @@
+print('_'*10, 'Lojas', '_'*10)
+print("________ Configurações de Usuários ________")
+print('')
+print('')
+print('='*10, 'Lojas', '='*10)
+print('='*10, "Configurações de Usuários", '='*10)
