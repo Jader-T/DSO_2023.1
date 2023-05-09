@@ -40,3 +40,7 @@ class TelaLoja:
         print("Nome da loja: ", dados_loja["nome"])
         print("Site da loja: ", dados_loja["site"])
         print("\n")
+
+    def pega_nome_loja(self):
+        print("Selecionando a loja")
+        return input("Informe o nome da loja: ")
