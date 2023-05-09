@@ -21,15 +21,16 @@ class TelaProduto:
             print("Opção inválida, digite uma opção válida")
         except KeyboardInterrupt:
             print("Você interrompeu a execução do programa!")
+
     def pega_dados_produto(self):
-        print('=' * 10, 'Dados Loja', '=' * 10)
+        print('=' * 10, 'Dados Produto', '=' * 10)
         try:
             nome = input('Digite o nome do produto: ').strip()
-            loja = input('Digite o nome da loja: ').strip()
+
             tipo = input('Digite a categoria do produto: ').strip()
             if not nome or not loja or not tipo:
                 raise ValueError("Nome e site da loja são obrigatórios.")
-            return {"nome": nome, "loja": loja, "tipo": tipo}
+            return {"nome": nome, "tipo": tipo}
         except KeyboardInterrupt:
             print("Você interrompeu a execução do programa!")
 

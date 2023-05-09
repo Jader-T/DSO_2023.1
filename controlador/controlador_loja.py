@@ -7,7 +7,7 @@ class ControladorLoja:
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__lojas = []
-        self.__tela_loja = TelaLoja()
+        self.__tela_loja = TelaLoja(self)
         self.__enderecos = []
 
     @property
@@ -33,3 +33,17 @@ class ControladorLoja:
         lista_opcoes = {1: self.inclui_loja, 2: self.lista_lojas, 0: self.retornar}
         while True:
             lista_opcoes[self.__tela_loja.mostra_opcoes_loja()]()
+
+    def busca_loja_pelo_nome(self, nome):
+        for loja in self.__lojas:
+            if loja.nome == nome:
+                return loja
+        else:
+            return None
+
+    def seleciona_loja(self):
+        while True:
+            nome_loja = self.__tela_loja.pega_nome_loja()
+            loja = self.busca_loja_pelo_nome(nome_loja)
+            if loja != None:
+                return loja
