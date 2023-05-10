@@ -8,35 +8,35 @@ class ControladorUsuarios:
     def __init__(self, controlador_sistema):
         self.__usuarios = []
         self.__telaUsuarios = TelaUsuario()
-        self.__controlador_sistema = controlador_sistema
-    #metodo para autenticação do usuário    
-    #def autentica_usuario(self):
-       # pass    
-       
+        self.__controlador_sistema = controlador_sistema  
+    
+    
+    
     def inclui_usuario(self):
-        tipo_usuario = self.__telaUsuarios.seleciona_tipo_usuario() # pergunta se é pessoa física ou jurídica
         dados_usuario = self.__telaUsuarios.pega_dados_usuario()
-        
-        if tipo_usuario == "Pessoa Física": #se pessoa fisica
+
+        if self.__telaUsuarios.seleciona_tipo_usuario() == "Pessoa Física": #se pessoa fisica
             cpf = dados_usuario["cpf"]
             nome = dados_usuario["nome"]
-            telefone = dados_usuario["fone"]
+            telefone = dados_usuario["telefone"]
             email = dados_usuario["email"]
-            usuario = PessoaFisica(cpf, nome, telefone, email)
-        elif tipo_usuario == "Pessoa Jurídica": #se pessoa juridica
+            senha = dados_usuario["senha"]
+            usuario = PessoaFisica(cpf, nome, telefone, email, senha)
+            
+        elif self.__telaUsuarios.seleciona_tipo_usuario() == "Pessoa Jurídica": #se pessoa juridica
             cnpj = dados_usuario["cnpj"]
-            razao_social = dados_usuario["razao_social"]
-            telefone = dados_usuario["fone"]
+            nome = dados_usuario["nome"]
+            telefone = dados_usuario["telefone"]
             email = dados_usuario["email"]
-            usuario = PessoaJuridica(cnpj, razao_social, telefone, email)
+            senha = dados_usuario["senha"]
+            usuario = PessoaJuridica(nome, cnpj, telefone, email, senha)
         else:
             self.__telaUsuarios.mostra_mensagem("Tipo de usuário inválido!")
             return
-            
         self.__usuarios.append(usuario)
         self.__telaUsuarios.mostra_mensagem("Usuário adicionado com sucesso!")
+        self.abre_tela()
 
-        
     def altera_usuario(self):
         self.lista_usuarios()
         tipo_usuario = self.__telaUsuarios.seleciona_tipo_usuario()
@@ -119,4 +119,10 @@ class ControladorUsuarios:
         
         continua = True
         while continua:
-            lista_opcoes[self.__telaUsuarios.campos_da_tela()]()
+            lista_opcoes[self.__telaUsuarios()]()
+
+    def busca_usuario_por_nome_e_senha(self, nome: str, senha: str):
+        for usuario in self.__usuarios:
+            if usuario.nome == nome and usuario.senha == senha:
+                return usuario
+        return None

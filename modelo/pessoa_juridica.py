@@ -2,8 +2,8 @@ from modelo.usuario import Usuario
 
 
 class PessoaJuridica(Usuario):
-    def __init__(self, nome: str, fone: int, email: str, cnpj: str):
-        super().__init__(nome, fone, email)
+    def __init__(self, nome: str, fone: int, email: str, cnpj: str, senha: str):
+        super().__init__(nome, fone, email, senha)
         
         if isinstance(cnpj, str):
             self.__cnpj = cnpj

@@ -12,20 +12,30 @@ class ControladorSistema:
     def controlador_usuarios(self):
         return self.__controlador_usuarios
     
-    def inicializa_sistema(self):
-        self.abre_tela()
 
-    #def faz_login(self):
-        #self.__abre_tela_login() controle de toda a sessão do #usuário após ele fazer login no sistema
+    def inicializa_sistema(self):
+        opcao = self.__tela_sistema.tela_opcao_inicial()
+        if opcao == 1: #opcao 1 é login
+            if self.faz_login():
+                self.abre_tela()
+        else:
+            if opcao == 2: #opcao 2 é cadastro
+                self.controlador_usuarios.inclui_usuario()
+
+    def faz_login(self):
+        usuario_senha = self.__tela_sistema.tela_login()
+        if self.controlador_usuarios.busca_usuario_por_nome_e_senha(usuario_senha["usuario"], usuario_senha["senha"]):
+            return True
+        else:
+            print("")
+            print("Usuário não encontrado!")
+            self.inicializa_sistema()
     
     def configura_usuarios(self):
         self.__controlador_usuarios.abre_tela()
         
     def encerra_sistema(self):
         exit(0)
-    
-    #def abre_tela_login(self):
-        #lista_opcoes = {1: self.faz_login, 2: self.configura_usuario}
         
     def abre_tela(self):
         lista_opcoes = {1: self.configura_usuarios, 0: self.encerra_sistema}

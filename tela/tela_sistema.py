@@ -1,6 +1,7 @@
-class TelaSistema:
-    #tela de login para iniciar sessão no sistema
-    def tela_login(self):
+
+class TelaSistema():
+
+    def tela_opcao_inicial(self):
         print("="*10, "Shop Tracer", "="*10)
         print("Escolha a opção: ")
         print("1 - Fazer login")
@@ -8,7 +9,6 @@ class TelaSistema:
         opcao = int(input("Escolha a opção: "))
         return opcao
     
-    #tela inicial de opções do sistema
     def menu_opcoes(self):
         print("="*10, "Shop Tracer", "="*10)
         print("Escolha a opcao desejada: ")
@@ -17,3 +17,8 @@ class TelaSistema:
         print("0 - Encerrar Sistema")
         opcao = int(input("Escolha a opção: "))
         return opcao
+    
+    def tela_login(self):
+        usuario = input("Digite seu usuário: ")
+        senha = input("Digite sua senha: ")
+        return {"usuario": usuario, "senha": senha}
