@@ -8,7 +8,7 @@ class TelaLoja:
     def mostra_opcoes_loja(self):
         print('='*10, 'Menu Lojas', '='*10)
         print('1: Adicionar loja')
-        print('2: Alterar loja')
+        print('2: Listar lojas')
         print('0: Retornar')
         try:
             opcao = int(input('Opção: ').strip())
@@ -36,11 +36,14 @@ class TelaLoja:
             print("Você interrompeu a execução do programa!")
 
     @staticmethod
-    def mostra_loja(self, dados_loja):
+    def mostra_loja(dados_loja):
         print("Nome da loja: ", dados_loja["nome"])
         print("Site da loja: ", dados_loja["site"])
         print("\n")
 
     def pega_nome_loja(self):
-        print("Selecionando a loja")
+        print('='*10, "Selecionando a loja", '='*10)
         return input("Informe o nome da loja: ")
+
+    def mostra_msg(self, msg):
+        print(msg)
