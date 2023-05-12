@@ -48,7 +48,9 @@ class ControladorSistema:
 
     def configura_compra(self):
         self.__controlador_compra.abre_tela_compra()
-        
+
+    def configura_cotacao(self):
+        self.__controlador_cotacao.abre_tela_cotacao()
     def encerra_sistema(self):
         exit(0)
     
@@ -56,7 +58,7 @@ class ControladorSistema:
         #lista_opcoes = {1: self.faz_login, 2: self.configura_usuario}
         
     def abre_tela(self):
-        lista_opcoes = {1: self.configura_usuarios, 2: self.configura_produto, 3: self.configura_compra, 0: self.encerra_sistema}
+        lista_opcoes = {1: self.configura_usuarios, 2: self.configura_cotacao, 3: self.configura_compra, 0: self.encerra_sistema}
         while True:
             opcao_escolhida = self.__tela_sistema.menu_opcoes()
             funcao_escolhida = lista_opcoes[opcao_escolhida]

@@ -9,18 +9,19 @@ class TelaLoja:
         print('='*10, 'Menu Lojas', '='*10)
         print('1: Adicionar loja')
         print('2: Listar lojas')
-        print('0: Retornar')
-        try:
-            opcao = int(input('Opção: ').strip())
-#           verificar se a opção é valida
-            assert opcao in [0, 1, 2]
-            return opcao
-        except ValueError:
-            print("O valor digitado é inválido, favor digitar um número inteiro")
-        except AssertionError:
-            print("Opção inválida, digite uma opção válida")
-        except KeyboardInterrupt:
-            print("Você interrompeu a execução do programa!")
+        print('0: Retornar para a tela inicial')
+        print('10: Retornar para o menu de produtos')
+        while True:
+            try:
+                opcao = int(input('Opção: ').strip())
+                if opcao not in [0, 1, 2, 10]:
+                    print('Opção inválida, favor digite novamente!')
+                else:
+                    return opcao
+            except ValueError:
+                print("O valor digitado é inválido, favor digitar um número inteiro!")
+            except KeyboardInterrupt:
+                print("Você interrompeu a execução do programa!")
 
     @staticmethod
     def pega_dados_loja(self):
@@ -37,12 +38,13 @@ class TelaLoja:
 
     @staticmethod
     def mostra_loja(dados_loja):
+        print("#"*20)
         print("Nome da loja: ", dados_loja["nome"])
         print("Site da loja: ", dados_loja["site"])
-        print("\n")
+        print("#"*20)
 
     def pega_nome_loja(self):
-        print('='*10, "Selecionando a loja", '='*10)
+        print('-'*10, "Selecionando a loja", '-'*10)
         return input("Informe o nome da loja: ")
 
     def mostra_msg(self, msg):

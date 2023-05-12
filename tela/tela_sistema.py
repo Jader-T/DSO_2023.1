@@ -14,7 +14,7 @@ class TelaSistema:
         print("Escolha a opcao desejada: ")
         print("")
         print("1 - Configurar Usuários")
-        print("2 - Menu produtos") #mudar para cotações
+        print("2 - Menu cotações") #mudar para cotações
         print("3 - Menu compras")
         print("0 - Encerrar Sistema")
         opcao = int(input("Escolha a opção: "))

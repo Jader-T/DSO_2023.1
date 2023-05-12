@@ -9,7 +9,8 @@ class ControladorCompra:
 
     def inclui_compra(self):
         dados_compra= self.__tela_compra.pega_dados_compra(self)
-        compra = Compra(dados_compra["data"], dados_compra["cotacao"], dados_compra["transportadora"])
+        cotacao = self.__controlador_sistema.controlador_cotacao.seleciona_cotacao()
+        compra = Compra(dados_compra["data"], cotacao, dados_compra["transportadora"])
         self.__compras.append(compra)
 
     def lista_compra(self):
