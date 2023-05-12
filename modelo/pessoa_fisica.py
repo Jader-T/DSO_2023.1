@@ -9,7 +9,7 @@ class PessoaFisica(Usuario):
             self.__cpf = cpf
             
     @property
-    def cpf(self, cpf):
+    def cpf(self):
         return self.__cpf
     
     @cpf.setter
