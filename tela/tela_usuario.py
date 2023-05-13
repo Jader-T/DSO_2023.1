@@ -33,9 +33,16 @@ class TelaUsuario():
                 print(f"{i+1} - {opcao}")
             escolha = int(input("Escolha uma opção: "))
             return opcoes[escolha-1]
-        except (ValueError, IndexError) as e:
-            print("Erro ao mostrar menu:", e)
+        except ValueError:
+            print("Valor digitado não é um número inteiro.")
             return None
+        except IndexError:
+            print("Opção selecionada não existe.")
+            return None
+        except TypeError:
+            print("Selecione uma das duas opções!")
+            return None
+
             
     def pega_dados_usuario(self):
         try:
@@ -83,6 +90,7 @@ class TelaUsuario():
                 print("Nome: ", dados_usuario["nome"])
                 print("Email: ", dados_usuario["email"])
                 print("Cnpj: ", dados_usuario["cnpj"])
+                print("\n")
         except:
             print("Erro ao exibir dados do usuário")
     
@@ -102,4 +110,5 @@ class TelaUsuario():
             print(f"Erro ao selecionar usuário: {ve}")
         except Exception as e:
             print(f"Erro ao selecionar usuário: {e}")
+            
 

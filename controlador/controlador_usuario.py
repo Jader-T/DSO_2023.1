@@ -30,47 +30,45 @@ class ControladorUsuarios:
         else:
             self.__telaUsuarios.mostra_mensagem("Tipo de usuário inválido!")
             return
-        
         self.__usuarios.append(usuario)
         self.__telaUsuarios.mostra_mensagem("Usuário adicionado com sucesso!\n Redirecionando-o para o menu principal...")
-        time.sleep(2)
         self.__controlador_sistema.inicializa_sistema()
+        time.sleep(2)
 
     def altera_usuario(self):
         self.lista_usuarios()
         nome_usuario = self.__telaUsuarios.selecionar_usuario()
         usuario = self.busca_usuario_por_nome(nome_usuario)
+        novos_dados_usuario = self.__telaUsuarios.pega_dados_usuario()
 
-        if (usuario is not None) and "cpf" in self.__telaUsuarios.pega_dados_usuario():
-            novos_dados_usuario = self.__telaUsuarios.pega_dados_usuario()
-            self.__telaUsuarios.mostra_mensagem("Digite os novos dados do usuário desejado")
-            usuario.nome  = novos_dados_usuario["nome"]
-            usuario.fone  = novos_dados_usuario["fone"]
+        if usuario is None:
+            self.__telaUsuarios.mostra_mensagem("Usuário não encontrado!")
+            return
+
+        if "cpf" in novos_dados_usuario:
+            if not isinstance(usuario, PessoaFisica):
+                self.__telaUsuarios.mostra_mensagem("Não é possível alterar o tipo do usuário!")
+                return
+            usuario.nome = novos_dados_usuario["nome"]
+            usuario.fone = novos_dados_usuario["fone"]
             usuario.email = novos_dados_usuario["email"]
-            usuario.cpf   = novos_dados_usuario["cpf"]
+            usuario.cpf = novos_dados_usuario["cpf"]
             usuario.senha = novos_dados_usuario["senha"]
-            self.__telaUsuarios.mostra_mensagem("")
-            self.__telaUsuarios.mostra_mensagem("Usuário alterado com sucesso!")
-            self.__telaUsuarios.mostra_mensagem("")
-            self.lista_usuarios()
-        #implementar aqui o tryexcept
-            #self.__telaUsuarios.mostra_mensagem("Usuário não Existe") 
-        
+        elif "cnpj" in novos_dados_usuario:
+            if not isinstance(usuario, PessoaJuridica):
+                self.__telaUsuarios.mostra_mensagem("Não é possível alterar o tipo do usuário!")
+                return
+            usuario.nome = novos_dados_usuario["nome"]
+            usuario.fone = novos_dados_usuario["fone"]
+            usuario.email = novos_dados_usuario["email"]
+            usuario.cnpj = novos_dados_usuario["cnpj"]
+            usuario.senha = novos_dados_usuario["senha"]
         else:
-            if (usuario is not None) and "cnpj" in self.__telaUsuarios.pega_dados_usuario():
-                novos_dados_usuario = self.__telaUsuarios.pega_dados_usuario()
-                self.__telaUsuarios.mostra_mensagem("Digite os novos dados do usuário desejado")
-                usuario.nome  = novos_dados_usuario["nome"]
-                usuario.fone  = novos_dados_usuario["fone"]
-                usuario.email = novos_dados_usuario["email"]
-                usuario.cnpj  = novos_dados_usuario["cnpj"]
-                usuario.senha = novos_dados_usuario["senha"]
-                self.__telaUsuarios.mostra_mensagem("")
-                self.__telaUsuarios.mostra_mensagem("Usuário alterado com sucesso!")
-                self.__telaUsuarios.mostra_mensagem("")            
-                self.lista_usuarios()
-            #implementar aqui o tryexcept    
-                #self.__telaUsuarios.mostra_mensagem("Usuário não Existe")
+            self.__telaUsuarios.mostra_mensagem("Tipo de usuário inválido!")
+            return
+
+        self.__telaUsuarios.mostra_mensagem("Usuário alterado com sucesso!")
+        self.lista_usuarios()
                 
     def exclui_usuario(self):
         self.lista_usuarios()
@@ -81,7 +79,6 @@ class ControladorUsuarios:
             self.__telaUsuarios.mostra_mensagem("")
             self.__telaUsuarios.mostra_mensagem("Usuário excluido com sucesso!")
             self.__telaUsuarios.mostra_mensagem("") 
-            self.lista_usuarios()
         else:
             self.__telaUsuarios.mostra_mensagem("Usuário informado não existe")
             
@@ -95,7 +92,9 @@ class ControladorUsuarios:
                     self.__telaUsuarios.mostra_usuario({"nome": usuario.nome, "email": usuario.email, "cpf": usuario.cpf})
             elif tipo_usuario == "Pessoa Jurídica":
                 for usuario in self.__usuarios:
-                    self.__telaUsuarios.mostra_usuario({"nome": usuario.nome, "email": usuario.email, "cnpj": usuario.cnpj})#Ta dando BUG!!!
+                    self.__telaUsuarios.mostra_usuario({"nome": usuario.nome, "email": usuario.email, "cnpj": usuario.cnpj})
+            else:
+                self.__telaUsuarios.mostra_mensagem("Não existem usuários")
                 
     def busca_usuario_por_nome(self, nome: str):
         for usuario in self.__usuarios:

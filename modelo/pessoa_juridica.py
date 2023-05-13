@@ -9,7 +9,7 @@ class PessoaJuridica(Usuario):
             self.__cnpj = cnpj
     
     @property
-    def cnpj(self, cnpj):
+    def cnpj(self):
         return self.__cnpj
     
     @cnpj.setter
