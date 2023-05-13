@@ -1,7 +1,6 @@
 from modelo.loja import Loja
 from tela.tela_loja import TelaLoja
 from modelo.endereco_filial import EnderecoFilial
-import time
 
 
 class ControladorLoja:
@@ -19,15 +18,17 @@ class ControladorLoja:
         dados_loja = self.__tela_loja.pega_dados_loja(self)
         loja = Loja(dados_loja["nome"], dados_loja["site"])
         self.__lojas.append(loja)
-        self.__tela_loja.mostra_msg("\nLoja adicionada!\n")
+        self.__tela_loja.mostra_msg("\n***Loja adicionada!***\n")
 
     def lista_lojas(self):
-        for loja in self.__lojas:
-            self.__tela_loja.mostra_loja({"nome": loja.nome, "site": loja.site})
+        if len(self.__lojas) == 0:
+            self.__tela_loja.mostra_msg("\nNão há lojas cadastradas!\n")
+            return
+        else:
+            for loja in self.__lojas:
+                self.__tela_loja.mostra_loja({"nome": loja.nome, "site": loja.site})
 
     def add_endereco(self, pais: str = "", estado: str = ""):
-        #implementar na tela uma opção para pegar o dado dos endereços e adicionar aqui
-        #self.__tela_loja.pega_dados_endereço.()
         self.__enderecos.append(EnderecoFilial(pais, estado))
 
     def retornar_sistema(self):
@@ -37,7 +38,8 @@ class ControladorLoja:
         self.__controlador_sistema.controlador_produto.abre_tela_produto()
 
     def abre_tela_loja(self):
-        lista_opcoes = {1: self.inclui_loja, 2: self.lista_lojas, 0: self.retornar_sistema, 10: self.retornar_produto}
+        lista_opcoes = {1: self.inclui_loja, 2: self.lista_lojas, 3: self.inclui_endereco,
+                        0: self.retornar_sistema, 10: self.retornar_produto}
         while True:
             lista_opcoes[self.__tela_loja.mostra_opcoes_loja(self)]()
 
@@ -52,13 +54,13 @@ class ControladorLoja:
         while True:
             nome_loja = self.__tela_loja.pega_nome_loja()
             loja = self.busca_loja_pelo_nome(nome_loja)
-            if loja != None:
+            if loja is not None:
                 return loja
             else:
-                self.__tela_loja.mostra_msg("\nAtenção! Loja não existente, favor cadastrar ou listar lojas no "
-                                            "menu abaixo\n")
-                self.abre_tela_loja()
+                self.__tela_loja.mostra_msg("\nAtenção! Loja não existente, favor cadastrar "
+                                            "ou listar lojas no menu lojas\n")
+                break
 
-    def add_endereco_na_loja(self):
-        # verificar com o professor
-        pass
+    def inclui_endereco(self):
+        dados_endereco = self.__tela_loja.pega_dados_endereco()
+        self.__enderecos.append(EnderecoFilial(dados_endereco["pais"], dados_endereco["estado"]))

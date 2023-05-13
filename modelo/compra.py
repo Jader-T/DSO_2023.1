@@ -1,11 +1,11 @@
 from modelo.cotacao import Cotacao
 
+
 class Compra:
-    def __init__(self, data_compra: str, cotacao: Cotacao, transportadora: str): #chegou: bool
+    def __init__(self, data_compra: str, dados: Cotacao, transportadora: str):
         self.__data_compra = data_compra
-        if (isinstance(cotacao, Cotacao)):
-            self.__cotacao = cotacao
-        #self.__chegou = chegou
+        if isinstance(dados, Cotacao):
+            self.__dados = dados
         self.__transportadora = transportadora
 
     @property
@@ -18,13 +18,13 @@ class Compra:
             self.__data_compra = data_compra
 
     @property
-    def cotacao(self):
-        return self.__cotacao
+    def dados(self):
+        return self.__dados
 
-    @cotacao.setter
-    def cotacao(self, cotacao: Cotacao):
-        if isinstance(cotacao, Cotacao):
-            self.__cotacao = cotacao
+    @dados.setter
+    def dados(self, dados: Cotacao):
+        if isinstance(dados, Cotacao):
+            self.__dados = dados
 
     @property
     def transportadora(self):
@@ -34,5 +34,3 @@ class Compra:
     def transportadora(self, transportadora: str):
         if isinstance(transportadora, str):
             self.__transportadora = transportadora
-
-    #Verificar sobre o atributo chegou

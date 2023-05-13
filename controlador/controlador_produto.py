@@ -13,15 +13,20 @@ class ControladorProduto:
         loja = self.__controlador_sistema.controlador_loja.seleciona_loja()
         produto = Produto(dados_produtos["nome"], loja, dados_produtos["tipo"])
         self.__produtos.append(produto)
-        self.__tela_produto.mostra_msg("\nProduto adicionado!\n")
+        self.__tela_produto.mostra_msg("\n***Produto adicionado!***\n")
 
     def lista_produtos(self):
-        for produto in self.__produtos:
-            self.__tela_produto.mostra_produto({"nome": produto.nome, "loja": produto.loja.nome, "tipo": produto.tipo})
+        if len(self.__produtos) == 0:
+            self.__tela_produto.mostra_msg("\nNão há produtos cadastradas!\n")
+            return
+        else:
+            for produto in self.__produtos:
+                self.__tela_produto.mostra_produto({"nome": produto.nome,
+                                                    "loja": produto.loja.nome, "tipo": produto.tipo})
 
     def abre_tela_produto(self):
-        lista_opcoes = {1: self.inclui_produto, 2: self.lista_produtos, 0: self.retornar_sistema, 10:
-                        self.retornar_cotacao}
+        lista_opcoes = {1: self.inclui_produto, 2: self.lista_produtos, 0: self.retornar_sistema,
+                        10: self.retornar_cotacao}
         while True:
             lista_opcoes[self.__tela_produto.mostra_opcoes_produto()]()
 
@@ -42,11 +47,10 @@ class ControladorProduto:
         while True:
             nome_produto = self.__tela_produto.pega_nome_produto()
             produto = self.busca_produto_pelo_nome(nome_produto)
-            if produto != None:
+            if produto is not None:
                 return produto
             else:
                 self.__tela_produto.mostra_msg("\nAtenção! O produto informado não existe "
                                                "favor cadastrar ou listar produtos no "
                                                "menu de produtos\n")
                 break
-                #self.abre_tela_produto()

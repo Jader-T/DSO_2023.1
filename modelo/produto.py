@@ -1,11 +1,11 @@
 from modelo.loja import Loja
-from modelo.categoria import Categoria
 
 
 class Produto:
-    def __init__(self, nome: str, loja: Loja, tipo: Categoria):
+    def __init__(self, nome: str, loja: Loja, tipo: str):
         self.__nome = nome
-        self.__loja = loja
+        if isinstance(loja, Loja):
+            self.__loja = loja
         self.__tipo = tipo
 
     @property
@@ -31,6 +31,6 @@ class Produto:
         return self.__tipo
 
     @tipo.setter
-    def tipo(self, tipo: Categoria):
-        if isinstance(tipo, Categoria):
+    def tipo(self, tipo: str):
+        if isinstance(tipo, str):
             self.__tipo = tipo

@@ -4,7 +4,7 @@ from modelo.produto import Produto
 class Cotacao:
     def __init__(self, preco: float, produto: Produto, codigo: int):
         self.__preco = preco
-        if (isinstance(produto, Produto)):
+        if isinstance(produto, Produto):
             self.__produto = produto
         self.__codigo = codigo
 
