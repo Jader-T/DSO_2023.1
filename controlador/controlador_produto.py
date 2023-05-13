@@ -45,6 +45,8 @@ class ControladorProduto:
             if produto != None:
                 return produto
             else:
-                self.__tela_produto.mostra_msg("\nAtenção! O produto informado não existe, favor cadastrar ou listar os "
-                                               "produtos no menu abaixo\n")
-                self.abre_tela_produto()
+                self.__tela_produto.mostra_msg("\nAtenção! O produto informado não existe "
+                                               "favor cadastrar ou listar produtos no "
+                                               "menu de produtos\n")
+                break
+                #self.abre_tela_produto()

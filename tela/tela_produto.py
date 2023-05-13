@@ -9,7 +9,7 @@ class TelaProduto:
         print('1: Adicionar produto')
         print('2: Listar produtos')
         print('0: Retornar para a tela inicial')
-        print('10: Retornar para o menu de cotações')
+        print('10: Ir para o menu de cotações')
         while True:
             try:
                 opcao = int(input('Opção: ').strip())

@@ -41,7 +41,7 @@ class TelaCotacao:
         print("#" * 20)
         print("Preço da cotação: ", "R$", dados_cotacao["preco"])
         print("Nome do produto: ", dados_cotacao["nome_produto"])
-        print("Loja relacionada: "), dados_cotacao["loja"]
+        print("Loja relacionada: ", dados_cotacao["loja"])
         print("Código da cotação: ", dados_cotacao["codigo"])
         print("#" * 20)
 
