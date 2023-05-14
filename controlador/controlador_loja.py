@@ -34,12 +34,9 @@ class ControladorLoja:
     def retornar_sistema(self):
         self.__controlador_sistema.abre_tela()
 
-    def retornar_produto(self):
-        self.__controlador_sistema.controlador_produto.abre_tela_produto()
-
     def abre_tela_loja(self):
         lista_opcoes = {1: self.inclui_loja, 2: self.lista_lojas, 3: self.inclui_endereco,
-                        0: self.retornar_sistema, 10: self.retornar_produto}
+                        0: self.retornar_sistema}
         while True:
             lista_opcoes[self.__tela_loja.mostra_opcoes_loja(self)]()
 
