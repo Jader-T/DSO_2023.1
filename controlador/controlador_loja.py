@@ -10,9 +10,9 @@ class ControladorLoja:
         self.__tela_loja = TelaLoja(self)
         self.__enderecos = []
 
-    @property
+    ''''@property
     def enderecos(self):
-        return self.__enderecos
+        return self.__enderecos'''
 
     def inclui_loja(self):
         dados_loja = self.__tela_loja.pega_dados_loja(self)
@@ -29,7 +29,7 @@ class ControladorLoja:
                 self.__tela_loja.mostra_loja({"nome": loja.nome, "site": loja.site})
 
     def add_endereco(self, pais: str = "", estado: str = ""):
-        self.__enderecos.append(EnderecoFilial(pais, estado))
+        self.__enderecos.append((EnderecoFilial(pais, estado)))
 
     def retornar_sistema(self):
         self.__controlador_sistema.abre_tela()
