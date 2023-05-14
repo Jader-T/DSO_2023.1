@@ -21,12 +21,16 @@ class TelaSistema():
                 print("")
                 print("Escolha a opcao desejada: ")
                 print("")
-                print("1 - Configurar Usuários")
+                print("1 - Menu usuários")
+                print("2 - Menu lojas")
+                print("3 - Menu produtos")
+                print("4 - Menu cotações")
+                print("5 - Menu compras")
                 print("0 - Encerrar Sistema")
                 print("")
                 opcao = int(input("Escolha a opção: "))
-                if opcao not in [0, 1]:
-                    raise ValueError("Opção inválida! Digite 0 ou 1.\n")
+                if opcao not in [0, 1, 2, 3, 4, 5]:
+                    raise ValueError("Opção inválida! Digite um valor entre 0 e 3.\n")
                 return opcao
             except ValueError as ve:
                 print(ve)

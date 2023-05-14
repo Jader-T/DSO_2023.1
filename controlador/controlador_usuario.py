@@ -1,6 +1,6 @@
 import time
-from tela.tela_usuario import TelaUsuario
-from modelo.pessoa_fisica import PessoaFisica
+from tela.tela_usuario      import TelaUsuario
+from modelo.pessoa_fisica   import PessoaFisica
 from modelo.pessoa_juridica import PessoaJuridica
 
 
@@ -28,12 +28,12 @@ class ControladorUsuarios:
             senha = dados_usuario["senha"]
             usuario = PessoaJuridica(nome, fone, email, cnpj, senha)
         else:
-            self.__telaUsuarios.mostra_mensagem("Tipo de usuário inválido!")
+            self.__telaUsuarios.mostra_mensagem("\nTipo de usuário inválido!\n")
             return
         self.__usuarios.append(usuario)
-        self.__telaUsuarios.mostra_mensagem("Usuário adicionado com sucesso!\n Redirecionando-o para o menu principal...")
-        self.__controlador_sistema.inicializa_sistema()
+        self.__telaUsuarios.mostra_mensagem("\nUsuário adicionado com sucesso!\n Redirecionando-o para o menu principal...\n")
         time.sleep(2)
+        self.__controlador_sistema.inicializa_sistema()
 
     def altera_usuario(self):
         self.lista_usuarios()
