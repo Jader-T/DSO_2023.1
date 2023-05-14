@@ -74,5 +74,30 @@ class ControladorCotacao:
         else:
             self.__tela_cotacao.mostra_msg("\nCotação informada não existe\n")
 
+    def remover_cotacao(self):
+        produto_cotacao = self.__tela_cotacao.pega_nome_cotacao()
+        cotacao = self.busca_cotacao_pelo_nome(produto_cotacao)
+        if cotacao is not None:
+            self.__cotacoes.remove(cotacao)
+            self.__tela_cotacao.mostra_msg("\n***Cotação removida!***\n")
+        else:
+            self.__tela_cotacao.mostra_msg("\nCotação informada não existe\n")
+
     def gera_relatorio(self):
-        pass
+        valor_minimo = self.__tela_cotacao.pega_valor_inicial()
+        valor_maximo = self.__tela_cotacao.pega_valor_final()
+        cotacoes_filtradas = []
+
+        for cotacao in self.__cotacoes:
+            if valor_minimo <= cotacao.preco <= valor_maximo:
+                cotacoes_filtradas.append(cotacao)
+
+        if len(cotacoes_filtradas) == 0:
+            self.__tela_cotacao.mostra_msg("\nNão há cotacoes registradas dentro da faixa de valor selecionada!\n")
+            return
+        else:
+            for cotacao in cotacoes_filtradas:
+                self.__tela_cotacao.mostra_relatorio({"preco": cotacao.preco,
+                                                    "nome_produto": cotacao.produto.nome,
+                                                    "loja": cotacao.produto.loja.nome,
+                                                    "codigo": cotacao.codigo})

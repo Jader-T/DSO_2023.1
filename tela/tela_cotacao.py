@@ -14,7 +14,7 @@ class TelaCotacao:
         while True:
             try:
                 opcao = int(input('Opção: ').strip())
-                if opcao not in [0, 1, 2, 3]:
+                if opcao not in [0, 1, 2, 3, 4]:
                     print('Opção inválida, por favor digite novamente!')
                 else:
                     return opcao
@@ -27,13 +27,13 @@ class TelaCotacao:
         print('=' * 10, 'Dados Cotação', '=' * 10)
         while True:
             try:
-                valor = input('Digite o preço: ').strip().replace(",", ".")
+                valor = input('Digite o preço: ').strip()
                 preco = float(valor)
                 if not preco:
                     raise ValueError
                 return {"preco": preco}
             except ValueError:
-                print("Valor inválido, por favor digite apenas um número, sendo o valor em reais")
+                print("Valor inválido, por favor digite um valor em reais")
             except KeyboardInterrupt:
                 print("Você interrompeu a execução do programa!")
 
@@ -55,6 +55,37 @@ class TelaCotacao:
             except ValueError:
                 print("Valor inválido, favor fornecer um número inteiro")
             break
+
+    def pega_valor_inicial(self):
+        while True:
+            try:
+                valor = input("Digite o valor mínimo: ")
+                preco = float(valor)
+                return preco
+            except ValueError:
+                print("Valor inválido. Digite novamente")
+            except TypeError:
+                print("A informação digitada deve ser um valor numérico!")
+
+    def pega_valor_final(self):
+        while True:
+            try:
+                valor = input("Digite o valor máximo: ")
+                preco = float(valor)
+                return preco
+            except ValueError:
+                print("Valor inválido. Digite novamente")
+            except TypeError:
+                print("A informação digitada deve ser um valor numérico!")
+
+    @staticmethod
+    def mostra_relatorio(dados_cotacao):
+        print("="*10,"Relatório de Cotações","="*10)
+        print("Preço da cotação: ", "R$", dados_cotacao["preco"])
+        print("Nome do produto: ", dados_cotacao["nome_produto"])
+        print("Loja relacionada: ", dados_cotacao["loja"])
+        print("Código da cotação: ", dados_cotacao["codigo"])
+        print("=" * 42)
 
     def mostra_msg(self, msg):
         print(msg)
