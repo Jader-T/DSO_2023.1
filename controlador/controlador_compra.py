@@ -35,8 +35,6 @@ class ControladorCompra:
     def retornar(self):
         self.__controlador_sistema.abre_tela()
 
-    def excluir_cotacao(self):
-        pass
 
     def abre_tela_compra(self):
         lista_opcoes = {1: self.inclui_compra, 2: self.lista_compra, 0: self.retornar}
@@ -49,6 +47,3 @@ class ControladorCompra:
                 return dados
         else:
             return None
-
-    def gera_relatorio(self):
-        pass

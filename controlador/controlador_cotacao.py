@@ -9,7 +9,6 @@ class ControladorCotacao:
         self.__cotacoes = []
         self.__tela_cotacao = TelaCotacao(self)
 
-    '''Verificar as demais implementações e verificar sobre o ATRIBUTO: CODIGO'''
     def inclui_cotacao(self):
         dados_cotacao = self.__tela_cotacao.pega_dados_cotacao()
         produto = self.__controlador_sistema.controlador_produto.seleciona_produto()

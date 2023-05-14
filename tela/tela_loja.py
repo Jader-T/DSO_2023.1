@@ -14,7 +14,7 @@ class TelaLoja:
         while True:
             try:
                 opcao = int(input('Opção: ').strip())
-                if opcao not in [0, 1, 2, 3, 10]:
+                if opcao not in [0, 1, 2, 3]:
                     print('Opção inválida, por favor digite novamente!')
                 else:
                     return opcao

@@ -17,7 +17,7 @@ class ControladorProduto:
 
     def lista_produtos(self):
         if len(self.__produtos) == 0:
-            self.__tela_produto.mostra_msg("\nNão há produtos cadastradas!\n")
+            self.__tela_produto.mostra_msg("\nNão há produtos cadastrados!\n")
             return
         else:
             for produto in self.__produtos:
