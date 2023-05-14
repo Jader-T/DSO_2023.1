@@ -27,13 +27,13 @@ class TelaCotacao:
         print('=' * 10, 'Dados Cotação', '=' * 10)
         while True:
             try:
-                valor = input('Digite o preço: ').strip()
+                valor = input('Digite o preço: ').strip().replace(",", ".")
                 preco = float(valor)
                 if not preco:
                     raise ValueError
                 return {"preco": preco}
             except ValueError:
-                print("Valor inválido, por favor digite um valor em reais")
+                print("Valor inválido, por favor digite apenas um número, sendo o valor em reais")
             except KeyboardInterrupt:
                 print("Você interrompeu a execução do programa!")
 

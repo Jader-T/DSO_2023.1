@@ -5,6 +5,10 @@ class Loja:
         self.__nome = nome
         self.__site = site
 
+    '''@property
+    def enderecos_filial(self):
+        return self.__enderecos_filial'''
+
     @property
     def nome(self):
         return self.__nome
