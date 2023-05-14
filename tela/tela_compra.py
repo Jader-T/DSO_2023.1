@@ -48,9 +48,6 @@ class TelaCompra:
         print("Transportadora: ", dados_compra["transportadora"])
         print("#" * 30)
 
-    def mostra_msg(self, msg):
-        print(msg)
-
     def pega_data_inicial(self):
         while True:
             try:
@@ -71,7 +68,7 @@ class TelaCompra:
 
     @staticmethod
     def mostra_relatorio(self, dados_compra):
-        print("="*10,"Relatório de Compras","="*10)
+        print("="*10, "Relatório de Compras", "="*10)
         print("Data da compra: ", dados_compra["data"])
         print("Código da cotação: ", dados_compra["dados_codigo"])
         print("Produto comprado: ", dados_compra["dados_produto"])

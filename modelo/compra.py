@@ -2,7 +2,7 @@ from modelo.cotacao import Cotacao
 
 
 class Compra:
-    def __init__(self, data_compra: str, prazo_entrega: str, chegou: bool):
+    def __init__(self, data_compra: str, dados: Cotacao, transportadora: str):
         self.__data_compra = data_compra
         if isinstance(dados, Cotacao):
             self.__dados = dados

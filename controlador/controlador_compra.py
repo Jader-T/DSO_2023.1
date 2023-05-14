@@ -31,6 +31,7 @@ class ControladorCompra:
                                                   "dados_produto": compra.dados.produto.nome,
                                                   "dados_preco": compra.dados.preco,
                                                   "transportadora": compra.transportadora})
+
     def retornar(self):
         self.__controlador_sistema.abre_tela()
 
@@ -50,13 +51,13 @@ class ControladorCompra:
         else:
             for compra in compras_filtradas:
                 self.__tela_compra.mostra_relatorio({"data": compra.data_compra,
-                                                "dados_codigo": compra.dados.codigo,
-                                                "dados_produto": compra.dados.produto.nome,
-                                                "dados_preco": compra.dados.preco,
-                                                "transportadora": compra.transportadora})
+                                                     "dados_codigo": compra.dados.codigo,
+                                                     "dados_produto": compra.dados.produto.nome,
+                                                     "dados_preco": compra.dados.preco,
+                                                     "transportadora": compra.transportadora})
 
     def abre_tela_compra(self):
-        lista_opcoes = {1: self.inclui_compra, 2: self.lista_compra, 0: self.retornar}
+        lista_opcoes = {1: self.inclui_compra, 2: self.lista_compra, 3: self.gera_relatorio, 0: self.retornar}
         while True:
             lista_opcoes[self.__tela_compra.mostra_opcoes_compra(self)]()
 

@@ -1,4 +1,6 @@
-class TelaUsuario():
+
+
+class TelaUsuario:
     def campos_da_tela(self):
         print("="*10, "Configurações de Usuários", "="*10)
         print("Escolha a opção:")
@@ -43,7 +45,6 @@ class TelaUsuario():
             print("Selecione uma das duas opções!")
             return None
 
-            
     def pega_dados_usuario(self):
         try:
             tipo_usuario = self.seleciona_tipo_usuario()
@@ -73,7 +74,6 @@ class TelaUsuario():
             print("Erro ao obter dados do usuário:", e)
             return None
 
-    
     def mostra_usuario(self, dados_usuario):
         try:
             tipo_usuario = ""
@@ -102,7 +102,7 @@ class TelaUsuario():
         
     def selecionar_usuario(self):
         try:
-            nome = input("Nome do Usuário que deseja selecionar: ") #definir depois se vai buscar pelo nome ou cpf/cnpj
+            nome = input("Nome do Usuário que deseja selecionar: ")
             if not nome:
                 raise ValueError("O nome do usuário não pode estar vazio.")
             return nome
@@ -110,5 +110,3 @@ class TelaUsuario():
             print(f"Erro ao selecionar usuário: {ve}")
         except Exception as e:
             print(f"Erro ao selecionar usuário: {e}")
-            
-

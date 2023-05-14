@@ -1,5 +1,6 @@
-class TelaSistema():
 
+
+class TelaSistema:
     def tela_opcao_inicial(self):
         while True:
             try:
@@ -28,7 +29,7 @@ class TelaSistema():
         print("")
         while True:
             try:
-                opcao = int(input("Escolha a opção: ")).strip())
+                opcao = int(input("Escolha a opção: "))
                 if opcao not in [0, 1, 2, 3, 4, 5]:
                     print('Opção inválida, por favor digite novamente!')
                 else:

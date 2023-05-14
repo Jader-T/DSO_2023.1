@@ -17,6 +17,7 @@ class Usuario(ABC):
     @property
     def nome(self):
         return self.__nome
+
     @nome.setter
     def nome(self, nome):
         if isinstance(nome, str):
@@ -25,6 +26,7 @@ class Usuario(ABC):
     @property
     def fone(self):
         return self.__fone
+
     @fone.setter
     def fone(self, fone):
         if isinstance(fone, int):
@@ -33,6 +35,7 @@ class Usuario(ABC):
     @property
     def email(self):
         return self.__email
+
     @email.setter
     def email(self, email):
         if isinstance(email, str):
@@ -41,13 +44,8 @@ class Usuario(ABC):
     @property
     def senha(self):
         return self.__senha
+
     @senha.setter
     def senha(self, senha):
         if isinstance(senha, str):
             self.__senha = senha
-    
-
-    
-    
-    
-            
