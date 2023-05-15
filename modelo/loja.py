@@ -1,13 +1,15 @@
+from modelo.endereco_filial import EnderecoFilial
 
 
 class Loja:
     def __init__(self, nome: str, site: str):
         self.__nome = nome
         self.__site = site
+        self.__endereco_filial = []
 
-    '''@property
+    @property
     def enderecos_filial(self):
-        return self.__enderecos_filial'''
+        return self.__endereco_filial
 
     @property
     def nome(self):
@@ -26,3 +28,7 @@ class Loja:
     def site(self, site: str):
         if isinstance(site, str):
             self.__nome = site
+
+    def incluir_endereco(self, pais, estado):
+        self.__endereco_filial.append(EnderecoFilial(pais, estado))
+
