@@ -1,6 +1,5 @@
 from modelo.loja import Loja
 from tela.tela_loja import TelaLoja
-from modelo.endereco_filial import EnderecoFilial
 
 
 class ControladorLoja:
@@ -8,7 +7,6 @@ class ControladorLoja:
         self.__controlador_sistema = controlador_sistema
         self.__lojas = []
         self.__tela_loja = TelaLoja(self)
-        self.__enderecos = []
 
     ''''@property
     def enderecos(self):
@@ -28,15 +26,23 @@ class ControladorLoja:
             for loja in self.__lojas:
                 self.__tela_loja.mostra_loja({"nome": loja.nome, "site": loja.site})
 
-    def add_endereco(self, pais: str = "", estado: str = ""):
-        self.__enderecos.append((EnderecoFilial(pais, estado)))
+    def add_endereco(self):
+        loja = self.seleciona_loja()
+        dados_endereco = self.__tela_loja.pega_dados_endereco()
+        Loja.incluir_endereco(loja, dados_endereco["pais"], dados_endereco["estado"])
+        self.__tela_loja.mostra_msg("\nEndereço adicionado!\n")
+
+    def lista_enderecos(self):
+        loja = self.seleciona_loja()
+        for enderecos in loja.enderecos_filial:
+            self.__tela_loja.mostra_enderecos({"pais": enderecos.pais, "estado": enderecos.estado})
 
     def retornar_sistema(self):
         self.__controlador_sistema.abre_tela()
 
     def abre_tela_loja(self):
-        lista_opcoes = {1: self.inclui_loja, 2: self.lista_lojas, 3: self.inclui_endereco,
-                        0: self.retornar_sistema}
+        lista_opcoes = {1: self.inclui_loja, 2: self.lista_lojas, 3: self.add_endereco,
+                        4: self.lista_enderecos, 0: self.retornar_sistema}
         while True:
             lista_opcoes[self.__tela_loja.mostra_opcoes_loja(self)]()
 
@@ -57,7 +63,3 @@ class ControladorLoja:
                 self.__tela_loja.mostra_msg("\nAtenção! Loja não existente, favor cadastrar "
                                             "ou listar lojas no menu lojas\n")
                 break
-
-    def inclui_endereco(self):
-        dados_endereco = self.__tela_loja.pega_dados_endereco()
-        self.__enderecos.append(EnderecoFilial(dados_endereco["pais"], dados_endereco["estado"]))
