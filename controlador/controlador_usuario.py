@@ -1,6 +1,6 @@
 import time
-from tela.tela_usuario      import TelaUsuario
-from modelo.pessoa_fisica   import PessoaFisica
+from tela.tela_usuario import TelaUsuario
+from modelo.pessoa_fisica import PessoaFisica
 from modelo.pessoa_juridica import PessoaJuridica
 
 
@@ -12,19 +12,19 @@ class ControladorUsuarios:
     
     def inclui_usuario(self):
         dados_usuario = self.__telaUsuarios.pega_dados_usuario()
-        if "cpf" in dados_usuario: #se pessoa fisica utiliza a classe PessoaFisica
-            nome  = dados_usuario["nome"]
-            fone  = dados_usuario["fone"]
+        if "cpf" in dados_usuario:
+            nome = dados_usuario["nome"]
+            fone = dados_usuario["fone"]
             email = dados_usuario["email"]
-            cpf   = dados_usuario["cpf"]
+            cpf = dados_usuario["cpf"]
             senha = dados_usuario["senha"]
             usuario = PessoaFisica(nome, fone, email, cpf, senha) 
 
-        elif "cnpj" in dados_usuario: #se pessoa juridica utiliza a classe PessoaJuridica
-            nome  = dados_usuario["nome"]
-            fone  = dados_usuario["fone"]
+        elif "cnpj" in dados_usuario:
+            nome = dados_usuario["nome"]
+            fone = dados_usuario["fone"]
             email = dados_usuario["email"]
-            cnpj  = dados_usuario["cnpj"]
+            cnpj = dados_usuario["cnpj"]
             senha = dados_usuario["senha"]
             usuario = PessoaJuridica(nome, fone, email, cnpj, senha)
         else:
@@ -32,6 +32,7 @@ class ControladorUsuarios:
             return
         self.__usuarios.append(usuario)
         self.__telaUsuarios.mostra_mensagem("\nUsuário adicionado com sucesso!\n")
+
         time.sleep(2)
         #if origem == "inicializa_sistema":
         self.__controlador_sistema.inicializa_sistema()
@@ -77,13 +78,12 @@ class ControladorUsuarios:
         self.lista_usuarios()
         nome_usuario = self.__telaUsuarios.selecionar_usuario()
         usuario = self.busca_usuario_por_nome(nome_usuario)
-        if(usuario is not None):
+        if usuario is not None:
             self.__usuarios.remove(usuario)
             self.__telaUsuarios.mostra_mensagem("\nUsuário excluido com sucesso!\n")
         else:
             self.__telaUsuarios.mostra_mensagem("Usuário informado não existe")
-            
-    
+
     def lista_usuarios(self):
         tipo_usuario = self.__telaUsuarios.seleciona_tipo_usuario()
         for usuario in self.__usuarios:
@@ -94,7 +94,6 @@ class ControladorUsuarios:
         else:
             pass
 
-                
     def busca_usuario_por_nome(self, nome: str):
         for usuario in self.__usuarios:
             if isinstance(usuario, PessoaFisica) and usuario.nome == nome:
@@ -111,9 +110,9 @@ class ControladorUsuarios:
         self.__controlador_sistema.abre_tela()
     
     def abre_tela(self):
-        lista_opcoes = {1: self.inclui_usuario, 2: self.altera_usuario, 3: self.exclui_usuario, 4: self.lista_usuarios, 0: self.retornar}
+        lista_opcoes = {1: self.inclui_usuario, 2: self.altera_usuario, 3: self.exclui_usuario,
+                        4: self.lista_usuarios, 0: self.retornar}
         
         continua = True
         while continua:
             lista_opcoes[self.__telaUsuarios.campos_da_tela()]()
-
