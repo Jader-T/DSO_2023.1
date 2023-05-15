@@ -1,5 +1,3 @@
-
-
 class TelaCotacao:
     def __init__(self, controlador):
         self.__controlador = controlador
@@ -47,7 +45,7 @@ class TelaCotacao:
         print("#" * 30)
 
     def pega_codigo_cotacao(self):
-        print('-'*10, "Selecionando a cotação", '-'*10)
+        print('- ' * 10, "Selecionando a cotação", '- ' * 10)
         while True:
             try:
                 codigo = input("Informe o codigo da cotacao: ").strip()
@@ -55,7 +53,7 @@ class TelaCotacao:
             except ValueError:
                 print("Valor inválido, favor fornecer um número inteiro")
             break
-    
+
     def pega_valor_inicial(self):
         while True:
             try:
@@ -65,8 +63,8 @@ class TelaCotacao:
             except ValueError:
                 print("Valor inválido. Digite novamente")
             except TypeError:
-                print("A informação digitada deve ser um valor numérico!")  
-                 
+                print("A informação digitada deve ser um valor numérico!")
+
     def pega_valor_final(self):
         while True:
             try:
@@ -77,23 +75,23 @@ class TelaCotacao:
                 print("Valor inválido. Digite novamente")
             except TypeError:
                 print("A informação digitada deve ser um valor numérico!")
-                
+
     @staticmethod
     def mostra_relatorio(dados_cotacao):
-        print("="*10,"Relatório de Cotações","="*10)
-        print("Preço da cotação: ", "R$", dados_cotacao["preco"])
-        print("Nome do produto: ", dados_cotacao["nome_produto"])
-        print("Loja relacionada: ", dados_cotacao["loja"])
-        print("Código da cotação: ", dados_cotacao["codigo"])
-        print("=" * 42)
-                
-    
+        print("=" * 15, "Relatório de Cotações", "=" * 15)
+        for cotacao in dados_cotacao:
+            print("Preço da cotação: ", "R$", cotacao["preco"])
+            print("Nome do produto: ", cotacao["nome_produto"])
+            print("Loja relacionada: ", cotacao["loja"])
+            print("Código da cotação: ", cotacao["codigo"])
+            print("-" * 52)
+        print("=" * 52)
 
     def mostra_msg(self, msg):
         print(msg)
 
     def pega_nome_cotacao(self):
-        print('-'*10, "Selecionando a cotação", '-'*10)
+        print('- ' * 10, "Selecionando a cotação", '- ' * 10)
         while True:
             try:
                 produto_cotacao = input("Informe o nome do produto da cotação: ").strip()

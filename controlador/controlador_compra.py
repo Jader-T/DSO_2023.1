@@ -55,18 +55,16 @@ class ControladorCompra:
         
         for compra in self.__compras:
             if data_inicial <= compra.data_compra <= data_final:
-                compras_filtradas.append(compra)
-
-        if len(compras_filtradas) == 0:
-            self.__tela_compra.mostra_msg("\nNão há compras registradas no período selecionado!\n")
-            return
-        else:
-            for compra in compras_filtradas:
-                self.__tela_compra.mostra_relatorio({"data": compra.data_compra,
+                compras_filtradas.append({"data": compra.data_compra,
                                                 "dados_codigo": compra.dados.codigo,
                                                 "dados_produto": compra.dados.produto.nome,
                                                 "dados_preco": compra.dados.preco,
                                                 "transportadora": compra.transportadora})
+
+        if len(compras_filtradas) == 0:
+            self.__tela_compra.mostra_msg("\nNão há compras registradas no período selecionado!\n")
+        else:
+            self.__tela_compra.mostra_relatorio(compras_filtradas)
 
             
 

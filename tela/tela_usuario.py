@@ -66,12 +66,16 @@ class TelaUsuario():
             else:
                 print("Opção inválida selecionada.")
                 return None
+        except TypeError:
+            print("Telefone deve ser um valor numérico")
+            return None
         except ValueError:
             print("Erro ao obter dados do usuário: telefone deve ser um número inteiro.")
             return None
         except Exception as e:
             print("Erro ao obter dados do usuário:", e)
             return None
+
 
     
     def mostra_usuario(self, dados_usuario):
@@ -102,9 +106,9 @@ class TelaUsuario():
         
     def selecionar_usuario(self):
         try:
-            nome = input("Nome do Usuário que deseja selecionar: ") #definir depois se vai buscar pelo nome ou cpf/cnpj
+            nome = input("Nome do Usuário que deseja selecionar: ")
             if not nome:
-                raise ValueError("O nome do usuário não pode estar vazio.")
+                raise ValueError("\nO nome do usuário não pode estar vazio.\n")
             return nome
         except ValueError as ve:
             print(f"Erro ao selecionar usuário: {ve}")

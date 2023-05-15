@@ -57,16 +57,16 @@ class TelaCompra:
                 print("Data inválida. Digite novamente.")
     
     @staticmethod
-    def mostra_relatorio(self, dados_compra):
-        print("="*10,"Relatório de Compras","="*10)
-        print("#" * 30)
-        print("Data da compra: ", dados_compra["data"])
-        print("Código da cotação: ", dados_compra["dados_codigo"])
-        print("Produto comprado: ", dados_compra["dados_produto"])
-        print("Preço: ", "R$", dados_compra["dados_preco"])
-        print("Transportadora: ", dados_compra["transportadora"])
-        print("#" * 30)
-        print("="*42)
+    def mostra_relatorio(dados_compra):
+        print("="*15,"Relatório de Compras","="*15)
+        for compra in dados_compra:
+            print("Data da compra: ", compra["data"])
+            print("Código da cotação: ", compra["dados_codigo"])
+            print("Produto comprado: ", compra["dados_produto"])
+            print("Preço: ", "R$", compra["dados_preco"])
+            print("Transportadora: ", compra["transportadora"])
+            print("-" * 52)
+        print("="*52)
                     
     
     @staticmethod

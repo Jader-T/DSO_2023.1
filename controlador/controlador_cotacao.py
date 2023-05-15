@@ -78,19 +78,17 @@ class ControladorCotacao:
     def gera_relatorio(self):
         valor_minimo = self.__tela_cotacao.pega_valor_inicial()
         valor_maximo = self.__tela_cotacao.pega_valor_final()
-        
+
         cotacoes_filtradas = []
-        
+
         for cotacao in self.__cotacoes:
             if valor_minimo <= cotacao.preco <= valor_maximo:
-                cotacoes_filtradas.append(cotacao)
+                cotacoes_filtradas.append({"preco": cotacao.preco,
+                                            "nome_produto": cotacao.produto.nome,
+                                            "loja": cotacao.produto.loja.nome,
+                                            "codigo": cotacao.codigo})
 
         if len(cotacoes_filtradas) == 0:
             self.__tela_cotacao.mostra_msg("\nNão há cotacoes registradas dentro da faixa de valor selecionada!\n")
-            return
         else:
-            for cotacao in cotacoes_filtradas:
-                self.__tela_cotacao.mostra_relatorio({"preco": cotacao.preco,
-                                                    "nome_produto": cotacao.produto.nome,
-                                                    "loja": cotacao.produto.loja.nome,
-                                                    "codigo": cotacao.codigo})
+            self.__tela_cotacao.mostra_relatorio(cotacoes_filtradas)
