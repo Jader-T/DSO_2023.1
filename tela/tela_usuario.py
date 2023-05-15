@@ -67,6 +67,9 @@ class TelaUsuario:
             else:
                 print("Opção inválida selecionada.")
                 return None
+        except TypeError:
+            print("Telefone deve ser um valor numérico")
+            return None
         except ValueError:
             print("Erro ao obter dados do usuário: telefone deve ser um número inteiro.")
             return None
@@ -104,7 +107,7 @@ class TelaUsuario:
         try:
             nome = input("Nome do Usuário que deseja selecionar: ")
             if not nome:
-                raise ValueError("O nome do usuário não pode estar vazio.")
+                raise ValueError("\nO nome do usuário não pode estar vazio.\n")
             return nome
         except ValueError as ve:
             print(f"Erro ao selecionar usuário: {ve}")
