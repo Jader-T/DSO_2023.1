@@ -32,7 +32,7 @@ class TelaSistema:
 
     def menu_opcoes(self):
         layout = [
-            [sg.Text("="*10, font=("Helvetica", 20))],
+            [sg.Text("Shop Tracer", font=("Helvetica", 20))],
             [sg.Text("", size=(30, 1))],
             [sg.Text("Escolha a opção desejada:", font=("Helvetica", 14))],
             [sg.Button("1 - Menu usuários")],
@@ -71,7 +71,7 @@ class TelaSistema:
 
     def tela_login(self):
         layout = [
-            [sg.Text("="*10, font=("Helvetica", 20))],
+            [sg.Text("Shop Tracer", font=("Helvetica", 20))],
             [sg.Text("", size=(30, 1))],
             [sg.Text("Digite seu usuário:", font=("Helvetica", 14))],
             [sg.Input(key="-USUARIO-", size=(30, 1), font=("Helvetica", 14))],
