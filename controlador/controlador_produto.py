@@ -17,7 +17,7 @@ class ControladorProduto:
 
     def lista_produtos(self):
         if len(self.__produtos) == 0:
-            self.__tela_produto.mostra_msg("\nNão há produtos cadastradas!\n")
+            self.__tela_produto.mostra_msg("\nNão há produtos cadastrados!\n")
             return
         else:
             for produto in self.__produtos:
@@ -25,8 +25,7 @@ class ControladorProduto:
                                                     "loja": produto.loja.nome, "tipo": produto.tipo})
 
     def abre_tela_produto(self):
-        lista_opcoes = {1: self.inclui_produto, 2: self.lista_produtos, 0: self.retornar_sistema,
-                        10: self.retornar_cotacao}
+        lista_opcoes = {1: self.inclui_produto, 2: self.lista_produtos, 0: self.retornar_sistema}
         while True:
             lista_opcoes[self.__tela_produto.mostra_opcoes_produto()]()
 
