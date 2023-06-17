@@ -1,55 +1,104 @@
-class TelaSistema():
-    
+import PySimpleGUI as sg
+
+
+class TelaSistema:
+    def __init__(self):
+        sg.ChangeLookAndFeel('Black')
     def tela_opcao_inicial(self):
+        layout = [
+            [sg.Text("Shop Tracer", font=("Helvetica", 20))],
+            [sg.Text("", size=(30, 1))],
+            [sg.Text("Escolha a opção:", font=("Helvetica", 14))],
+            [sg.Button("Fazer login")],
+            [sg.Button("Cadastrar usuário")],
+            [sg.Text("", size=(30, 1))],
+        ]
+        window = sg.Window("Shop Tracer", layout, element_justification='center', font=("arial", 14), finalize=True, size=(300, 250))
+
         while True:
-            try:
-                print("="*10, "Shop Tracer", "="*10)
-                print("")
-                print("Escolha a opção: ")
-                print("1 - Fazer login")
-                print("2 - Cadastrar usuário")
-                print("")       
-                opcao = int(input("Escolha a opção: "))
-                return opcao
-            except ValueError:
-                print("Opção inválida! Digite um número inteiro.\n")
-    
+            event, _ = window.read()
+            if event == "Fazer login":
+                opcao = 1
+                break
+            elif event == "Cadastrar usuário":
+                opcao = 2
+                break
+            elif event == sg.WINDOW_CLOSED:
+                opcao = None
+                break
+
+        window.close()
+        return opcao
+
     def menu_opcoes(self):
+        layout = [
+            [sg.Text("="*10, font=("Helvetica", 20))],
+            [sg.Text("", size=(30, 1))],
+            [sg.Text("Escolha a opção desejada:", font=("Helvetica", 14))],
+            [sg.Button("1 - Menu usuários")],
+            [sg.Button("2 - Menu lojas")],
+            [sg.Button("3 - Menu produtos")],
+            [sg.Button("4 - Menu cotações")],
+            [sg.Button("5 - Menu compras")],
+            [sg.Text("", size=(30, 1))],
+            [sg.Button("0 - Encerrar Sistema")],
+        ]
+        window = sg.Window("Shop Tracer", layout, element_justification='c', font=("Helvetica", 14), finalize=True, size=(350, 400))
+
         while True:
-            try:
-                print("="*10, "Shop Tracer", "="*10)
-                print("")
-                print("Escolha a opcao desejada: ")
-                print("")
-                print("1 - Menu usuários")
-                print("2 - Menu lojas")
-                print("3 - Menu produtos")
-                print("4 - Menu cotações")
-                print("5 - Menu compras")
-                print("0 - Encerrar Sistema")
-                print("")
-                opcao = int(input("Escolha a opção: "))
-                if opcao not in [0, 1, 2, 3, 4, 5]:
-                    raise ValueError("Opção inválida! Digite um valor entre 0 e 3.\n")
-                return opcao
-            except ValueError as ve:
-                print(ve)
-    
+            event, _ = window.read()
+            if event == "1 - Menu usuários":
+                opcao = 1
+                break
+            elif event == "2 - Menu lojas":
+                opcao = 2
+                break
+            elif event == "3 - Menu produtos":
+                opcao = 3
+                break
+            elif event == "4 - Menu cotações":
+                opcao = 4
+                break
+            elif event == "5 - Menu compras":
+                opcao = 5
+                break
+            elif event == "0 - Encerrar Sistema" or event == sg.WINDOW_CLOSED:
+                opcao = 0
+                break
+
+        window.close()
+        return opcao
+
     def tela_login(self):
-        print("="*10, "Shop Tracer", "="*10)
+        layout = [
+            [sg.Text("="*10, font=("Helvetica", 20))],
+            [sg.Text("", size=(30, 1))],
+            [sg.Text("Digite seu usuário:", font=("Helvetica", 14))],
+            [sg.Input(key="-USUARIO-", size=(30, 1), font=("Helvetica", 14))],
+            [sg.Text("", size=(30, 1))],
+            [sg.Text("Digite sua senha:", font=("Helvetica", 14))],
+            [sg.Input(key="-SENHA-", password_char="*", size=(30, 1), font=("Helvetica", 14))],
+            [sg.Text("", size=(30, 1))],
+            [sg.Button("OK", font=("Helvetica", 14))]
+        ]
+        window = sg.Window("Shop Tracer", layout, element_justification='c', font=("Helvetica", 14), finalize=True, size=(350, 300))
+
         while True:
-            nome = input("Digite seu usuário: ")
-            if nome.strip() == "":
-                print("Nome de usuário vazio! Tente novamente.\n")
-            else:
+            event, values = window.read()
+            if event == "OK":
+                nome = values["-USUARIO-"].strip()
+                senha = values["-SENHA-"].strip()
+                if nome != "" and senha != "":
+                    break
+                sg.popup("Nome de usuário e senha não podem ser vazios!")
+
+            elif event == sg.WINDOW_CLOSED:
+                nome = None
+                senha = None
                 break
-        while True:
-            senha = input("Digite sua senha: ")
-            if senha.strip() == "":
-                print("Senha vazia! Tente novamente.\n")
-            else:
-                break
+
+        window.close()
         return {"usuario": nome, "senha": senha}
-    
+
     def mensagem(self, msg):
-        print(msg)
+        sg.popup(msg)

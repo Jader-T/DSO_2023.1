@@ -29,14 +29,10 @@ class ControladorUsuarios:
             usuario = PessoaJuridica(nome, fone, email, cnpj, senha)
         else:
             self.__telaUsuarios.mostra_mensagem("\nTipo de usuário inválido!\n")
-            return
+            return False
         self.__usuarios.append(usuario)
         self.__telaUsuarios.mostra_mensagem("\nUsuário adicionado com sucesso!\n")
-        time.sleep(2)
-        #if origem == "inicializa_sistema":
-        self.__controlador_sistema.inicializa_sistema()
-        #else:
-            #self.abre_tela(origem)
+        return True
 
     def altera_usuario(self):
         self.lista_usuarios()
@@ -82,8 +78,7 @@ class ControladorUsuarios:
             self.__telaUsuarios.mostra_mensagem("\nUsuário excluido com sucesso!\n")
         else:
             self.__telaUsuarios.mostra_mensagem("Usuário informado não existe")
-            
-    
+
     def lista_usuarios(self):
         tipo_usuario = self.__telaUsuarios.seleciona_tipo_usuario()
         for usuario in self.__usuarios:
@@ -94,7 +89,6 @@ class ControladorUsuarios:
         else:
             pass
 
-                
     def busca_usuario_por_nome(self, nome: str):
         for usuario in self.__usuarios:
             if isinstance(usuario, PessoaFisica) and usuario.nome == nome:

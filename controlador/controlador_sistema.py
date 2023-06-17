@@ -46,7 +46,11 @@ class ControladorSistema:
             if opcao == 2:  # opcao 2 é cadastro
                 self.__tela_sistema.mensagem("\nVocê será direcionado para o cadastro de usuários\n")
                 time.sleep(2)
-                self.controlador_usuarios.inclui_usuario()  # abre o método de incluir usuario
+                if self.controlador_usuarios.inclui_usuario():
+                    self.__tela_sistema.mensagem("Usuário adicionado com sucesso")
+                    self.inicializa_sistema()
+                else:
+                    self.__tela_sistema.mensagem("falha ao incluir usuário")
 
     def faz_login(self):
         usuario_senha = self.__tela_sistema.tela_login()
