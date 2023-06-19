@@ -1,6 +1,5 @@
-import time
-from tela.tela_usuario      import TelaUsuario
-from modelo.pessoa_fisica   import PessoaFisica
+from tela.tela_usuario import TelaUsuario
+from modelo.pessoa_fisica import PessoaFisica
 from modelo.pessoa_juridica import PessoaJuridica
 
 
@@ -9,22 +8,22 @@ class ControladorUsuarios:
         self.__usuarios = []
         self.__telaUsuarios = TelaUsuario()
         self.__controlador_sistema = controlador_sistema
-    
+
     def inclui_usuario(self):
         dados_usuario = self.__telaUsuarios.pega_dados_usuario()
-        if "cpf" in dados_usuario: #se pessoa fisica utiliza a classe PessoaFisica
-            nome  = dados_usuario["nome"]
-            fone  = dados_usuario["fone"]
+        if "cpf" in dados_usuario:  # se pessoa fisica utiliza a classe PessoaFisica
+            nome = dados_usuario["nome"]
+            fone = dados_usuario["fone"]
             email = dados_usuario["email"]
-            cpf   = dados_usuario["cpf"]
+            cpf = dados_usuario["cpf"]
             senha = dados_usuario["senha"]
-            usuario = PessoaFisica(nome, fone, email, cpf, senha) 
+            usuario = PessoaFisica(nome, fone, email, cpf, senha)
 
-        elif "cnpj" in dados_usuario: #se pessoa juridica utiliza a classe PessoaJuridica
-            nome  = dados_usuario["nome"]
-            fone  = dados_usuario["fone"]
+        elif "cnpj" in dados_usuario:  # se pessoa juridica utiliza a classe PessoaJuridica
+            nome = dados_usuario["nome"]
+            fone = dados_usuario["fone"]
             email = dados_usuario["email"]
-            cnpj  = dados_usuario["cnpj"]
+            cnpj = dados_usuario["cnpj"]
             senha = dados_usuario["senha"]
             usuario = PessoaJuridica(nome, fone, email, cnpj, senha)
         else:
@@ -68,12 +67,12 @@ class ControladorUsuarios:
 
         self.__telaUsuarios.mostra_mensagem("\nUsuário alterado com sucesso!\n")
         self.lista_usuarios()
-                
+
     def exclui_usuario(self):
         self.lista_usuarios()
         nome_usuario = self.__telaUsuarios.selecionar_usuario()
         usuario = self.busca_usuario_por_nome(nome_usuario)
-        if(usuario is not None):
+        if (usuario is not None):
             self.__usuarios.remove(usuario)
             self.__telaUsuarios.mostra_mensagem("\nUsuário excluido com sucesso!\n")
         else:
@@ -97,17 +96,17 @@ class ControladorUsuarios:
 
     def busca_usuario_por_nome_e_senha(self, nome: str, senha: str):
         for usuario in self.__usuarios:
-            if (usuario.nome == nome and usuario.senha == senha):
+            if usuario.nome == nome and usuario.senha == senha:
                 return usuario
         return None
-    
+
     def retornar(self):
         self.__controlador_sistema.abre_tela()
-    
+
     def abre_tela(self):
-        lista_opcoes = {1: self.inclui_usuario, 2: self.altera_usuario, 3: self.exclui_usuario, 4: self.lista_usuarios, 0: self.retornar}
-        
+        lista_opcoes = {1: self.inclui_usuario, 2: self.altera_usuario, 3: self.exclui_usuario, 4: self.lista_usuarios,
+                        0: self.retornar}
+
         continua = True
         while continua:
             lista_opcoes[self.__telaUsuarios.campos_da_tela()]()
-

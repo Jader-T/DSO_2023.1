@@ -4,7 +4,6 @@ from controlador.controlador_loja import ControladorLoja
 from controlador.controlador_produto import ControladorProduto
 from controlador.controlador_cotacao import ControladorCotacao
 from controlador.controlador_compra import ControladorCompra
-import time
 
 
 class ControladorSistema:
@@ -44,8 +43,7 @@ class ControladorSistema:
                 self.abre_tela()
         else:
             if opcao == 2:  # opcao 2 é cadastro
-                self.__tela_sistema.mensagem("\nVocê será direcionado para o cadastro de usuários\n")
-                time.sleep(2)
+                self.__tela_sistema.mensagem("\ndirecionando-o para o cadastro de usuários\n")
                 if self.controlador_usuarios.inclui_usuario():
                     self.__tela_sistema.mensagem("Usuário adicionado com sucesso")
                     self.inicializa_sistema()
@@ -58,9 +56,7 @@ class ControladorSistema:
             "senha"]):  # compara o usuario e senha do tela login com o busca por nome e senha
             return True
         else:  # se não houver usuário volta para a tela de login
-            self.__tela_sistema.mensagem("")
             self.__tela_sistema.mensagem("\nUsuário não encontrado!\n Você será redirecionado a tela de login inicial...\n")
-            time.sleep(1)
             self.inicializa_sistema()
 
     def configura_usuarios(self):
