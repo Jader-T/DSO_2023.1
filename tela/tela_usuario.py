@@ -163,11 +163,11 @@ class TelaUsuario:
     def mostra_mensagem(self, msg):
         sg.Popup(msg, font=('Arial', 14, 'bold'))
 
-    def selecionar_usuario(self):
+    def selecionar_usuario_por_cpf(self):
         try:
             layout = [
-                [sg.Text("Nome do usuário que deseja selecionar:", font=('Arial', 12, 'bold'))],
-                [sg.Input(key='Nome', size=(20, 1))],
+                [sg.Text("Cpf do usuário que deseja selecionar:", font=('Arial', 12, 'bold'))],
+                [sg.Input(key='cpf', size=(20, 1))],
                 [sg.Button("Selecionar", size=(15, 1), font=('Arial', 14, 'bold'))],
                 [sg.Text('')],
             ]
@@ -182,13 +182,45 @@ class TelaUsuario:
                     break
 
                 elif event == "Selecionar":
-                    nome = values["Nome"]
+                    nome = values["cpf"]
                     break
 
             window.close()
 
             if not nome:
-                raise ValueError("\nO nome do usuário não pode estar vazio.\n")
+                raise ValueError("\nO cpf do usuário não pode estar vazio.\n")
+            return nome
+        except ValueError as ve:
+            print(f"Erro ao selecionar usuário: {ve}")
+        except Exception as e:
+            print(f"Erro ao selecionar usuário: {e}")
+
+    def selecionar_usuario_por_cnpj(self):
+        try:
+            layout = [
+                [sg.Text("Cnpj do usuário que deseja selecionar:", font=('Arial', 12, 'bold'))],
+                [sg.Input(key='cnpj', size=(20, 1))],
+                [sg.Button("Selecionar", size=(15, 1), font=('Arial', 14, 'bold'))],
+                [sg.Text('')],
+            ]
+
+            window = sg.Window("Selecione um usuário", layout, element_justification='center')
+
+            while True:
+                event, values = window.read()
+
+                if event == sg.WINDOW_CLOSED:
+                    nome = None
+                    break
+
+                elif event == "Selecionar":
+                    nome = values["cnpj"]
+                    break
+
+            window.close()
+
+            if not nome:
+                raise ValueError("\nO cnpj do usuário não pode estar vazio.\n")
             return nome
         except ValueError as ve:
             print(f"Erro ao selecionar usuário: {ve}")
