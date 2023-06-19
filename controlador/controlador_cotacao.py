@@ -9,7 +9,6 @@ class ControladorCotacao:
         self.__cotacoes = []
         self.__tela_cotacao = TelaCotacao(self)
 
-    '''Verificar as demais implementações e verificar sobre o ATRIBUTO: CODIGO'''
     def inclui_cotacao(self):
         dados_cotacao = self.__tela_cotacao.pega_dados_cotacao()
         produto = self.__controlador_sistema.controlador_produto.seleciona_produto()
@@ -56,7 +55,7 @@ class ControladorCotacao:
 
     def abre_tela_cotacao(self):
         lista_opcoes = {1: self.inclui_cotacao, 2: self.lista_cotacao, 3: self.remover_cotacao,
-                        4: self.gera_relatorio, 0: self.retornar_sistema, 10: self.retornar_compras}
+                        4: self.gera_relatorio, 0: self.retornar_sistema}
         while True:
             lista_opcoes[self.__tela_cotacao.mostra_opcoes_cotacao()]()
 
@@ -93,3 +92,4 @@ class ControladorCotacao:
             self.__tela_cotacao.mostra_msg("\nNão há cotacoes registradas dentro da faixa de valor selecionada!\n")
         else:
             self.__tela_cotacao.mostra_relatorio(cotacoes_filtradas)
+

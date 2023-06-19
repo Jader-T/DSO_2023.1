@@ -14,5 +14,5 @@ class PessoaJuridica(Usuario):
     
     @cnpj.setter
     def cnpj(self, cnpj):
-        if isinstance (cnpj, str):
+        if isinstance(cnpj, str):
             self.__cnpj = cnpj

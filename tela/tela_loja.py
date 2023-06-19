@@ -9,12 +9,13 @@ class TelaLoja:
         print('='*10, 'Menu Lojas', '='*10)
         print('1: Adicionar loja')
         print('2: Listar lojas')
-        print('3: Adicionar endereço')
+        print('3: Adicionar endereço de uma filial')
+        print('4: Listar endereço das filiais')
         print('0: Retornar para o menu inicial\n')
         while True:
             try:
                 opcao = int(input('Opção: ').strip())
-                if opcao not in [0, 1, 2, 3, 10]:
+                if opcao not in [0, 1, 2, 3, 4]:
                     print('Opção inválida, por favor digite novamente!')
                 else:
                     return opcao
@@ -65,3 +66,11 @@ class TelaLoja:
                 print("Pais e estado são obrigatórios.")
             except KeyboardInterrupt:
                 print("Você interrompeu a execução do programa!")
+
+    @staticmethod
+    def mostra_enderecos(dados_endereco):
+        print("#" * 30)
+        print("Endereços da loja selecionada:\n")
+        print("Pais: ", dados_endereco["pais"])
+        print("Estado: ", dados_endereco["estado"])
+        print("#" * 30)

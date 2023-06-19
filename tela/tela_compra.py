@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 class TelaCompra:
     def __init__(self, controlador):
         self.__controlador = controlador
@@ -7,11 +8,10 @@ class TelaCompra:
     @staticmethod
     def mostra_opcoes_compra(self):
         print('=' * 10, 'Menu Compras', '=' * 10)
-        print('1: Comprar')
+        print('1: Registrar Compra')
         print('2: Listar Compras')
         print('3: Gerar relatorio')
-        print('4: Buscar compra')
-        print('0: Retornar para tela inicial')
+        print('0: Retornar para o menu inicial\n')
         while True:
             try:
                 opcao = int(input('Opção: ').strip())
@@ -26,18 +26,28 @@ class TelaCompra:
 
     @staticmethod
     def pega_dados_compra(self):
-        '''Necessário adicionar mais um tratamento de exceções, para as variaveis cotacao e transportadora'''
-
         print("=" * 10, "Dados Compra", "=" * 10)
         while True:
             transportadora = input('Digite o nome da transportadora: ').strip()
             data_inserida = input('Digite a data de compra no formato DD/MM/AAAA: ').strip()
             try:
                 data = datetime.strptime(data_inserida, '%d/%m/%Y')
-                return {"data": data, "transportadora": transportadora}
+                return {"data": data.strftime('%d/%m/%Y'), "transportadora": transportadora}
             except ValueError:
                 print("A data inserida é inválida. Tente novamente.")
-                
+            except KeyboardInterrupt:
+                print("Você interrompeu a execução do programa!")
+
+    @staticmethod
+    def mostra_compra(dados_compra):
+        print("#" * 30)
+        print("Data da compra: ", dados_compra["data"])
+        print("Código da cotação: ", dados_compra["dados_codigo"])
+        print("Produto comprado: ", dados_compra["dados_produto"])
+        print("Preço: ", "R$", dados_compra["dados_preco"])
+        print("Transportadora: ", dados_compra["transportadora"])
+        print("#" * 30)
+
     def pega_data_inicial(self):
         while True:
             try:
@@ -46,7 +56,7 @@ class TelaCompra:
                 return data.strptime('%d/%m/%Y')
             except ValueError:
                 print("Data Inválida. Digite novamente.")
-                
+
     def pega_data_final(self):
         while True:
             try:
@@ -55,7 +65,7 @@ class TelaCompra:
                 return data.strptime('%d/%m/%Y')
             except ValueError:
                 print("Data inválida. Digite novamente.")
-    
+
     @staticmethod
     def mostra_relatorio(dados_compra):
         print("="*15,"Relatório de Compras","="*15)
@@ -67,16 +77,9 @@ class TelaCompra:
             print("Transportadora: ", compra["transportadora"])
             print("-" * 52)
         print("="*52)
-                    
-    
+                      
     @staticmethod
     def mostra_compra(dados_compra):
-        print("#" * 30)
-        print("Data da compra: ", dados_compra["data"])
-        print("Código da cotação: ", dados_compra["dados_codigo"])
-        print("Produto comprado: ", dados_compra["dados_produto"])
-        print("Preço: ", "R$", dados_compra["dados_preco"])
-        print("Transportadora: ", dados_compra["transportadora"])
         print("#" * 30)
 
     def mostra_msg(self, msg):

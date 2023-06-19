@@ -99,6 +99,6 @@ class TelaSistema:
 
         window.close()
         return {"usuario": nome, "senha": senha}
-
+    
     def mensagem(self, msg):
         sg.popup(msg)
