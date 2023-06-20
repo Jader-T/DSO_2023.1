@@ -10,8 +10,7 @@ class ControladorProduto:
 
     def inclui_produto(self):
         dados_produtos = self.__tela_produto.pega_dados_produto()
-        loja = self.__controlador_sistema.controlador_loja.seleciona_loja()
-        produto = Produto(dados_produtos["nome"], loja, dados_produtos["tipo"])
+        produto = Produto(dados_produtos["nome"], dados_produtos["tipo"])
         self.__produtos.append(produto)
         self.__tela_produto.mostra_msg("\n***Produto adicionado!***\n")
 
@@ -22,10 +21,11 @@ class ControladorProduto:
         else:
             for produto in self.__produtos:
                 self.__tela_produto.mostra_produto({"nome": produto.nome,
-                                                    "loja": produto.loja.nome, "tipo": produto.tipo})
+                                                    "tipo": produto.tipo})
 
     def abre_tela_produto(self):
-        lista_opcoes = {1: self.inclui_produto, 2: self.lista_produtos, 0: self.retornar_sistema}
+        lista_opcoes = {1: self.inclui_produto, 2: self.lista_produtos,
+                        3: self.altera_produto, 0: self.retornar_sistema}
         while True:
             lista_opcoes[self.__tela_produto.mostra_opcoes_produto()]()
 
@@ -53,3 +53,23 @@ class ControladorProduto:
                                                "favor cadastrar ou listar produtos no "
                                                "menu de produtos\n")
                 break
+
+    def altera_produto(self):
+        self.lista_produtos()
+        nome_produto = self.__tela_produto.pega_nome_produto()
+        produto = self.busca_produto_pelo_nome(nome_produto)
+        novos_dados_produto = self.__tela_produto.pega_dados_produto()
+
+        if produto is None:
+            self.__tela_produto.mostra_msg("Produto não encontrado!")
+            return
+
+
+        if not isinstance(produto, Produto):
+            self.__tela_produto.mostra_msg("Não é possível alterar o tipo do produto!")
+            return
+        produto.nome = novos_dados_produto["nome"]
+        produto.tipo = novos_dados_produto["tipo"]
+
+        self.__tela_produto.mostra_msg("\nProduto alterado com sucesso!\n")
+        self.lista_produtos()

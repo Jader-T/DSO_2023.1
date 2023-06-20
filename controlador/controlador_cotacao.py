@@ -12,8 +12,9 @@ class ControladorCotacao:
     def inclui_cotacao(self):
         dados_cotacao = self.__tela_cotacao.pega_dados_cotacao()
         produto = self.__controlador_sistema.controlador_produto.seleciona_produto()
+        loja = self.__controlador_sistema.controlador_loja.seleciona_loja()
         if produto is not None:
-            cotacao = Cotacao(dados_cotacao["preco"], produto, randint(0, 200))
+            cotacao = Cotacao(dados_cotacao["preco"], produto, loja, randint(0, 200))
             self.__cotacoes.append(cotacao)
             self.__tela_cotacao.mostra_msg("\n***Cotação incluída***\n")
 
@@ -25,7 +26,7 @@ class ControladorCotacao:
             for cotacao in self.__cotacoes:
                 self.__tela_cotacao.mostra_cotacao({"preco": cotacao.preco,
                                                     "nome_produto": cotacao.produto.nome,
-                                                    "loja": cotacao.produto.loja.nome,
+                                                    "loja": cotacao.loja.nome,
                                                     "codigo": cotacao.codigo})
 
     def busca_cotacao_pelo_codigo(self, codigo):

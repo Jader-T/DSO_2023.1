@@ -45,6 +45,7 @@ class TelaCompra:
         print("Código da cotação: ", dados_compra["dados_codigo"])
         print("Produto comprado: ", dados_compra["dados_produto"])
         print("Preço: ", "R$", dados_compra["dados_preco"])
+        print("Loja: ", dados_compra["dados_loja"])
         print("Transportadora: ", dados_compra["transportadora"])
         print("#" * 30)
 

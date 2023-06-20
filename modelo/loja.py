@@ -31,4 +31,3 @@ class Loja:
 
     def incluir_endereco(self, pais, estado):
         self.__endereco_filial.append(EnderecoFilial(pais, estado))
-

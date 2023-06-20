@@ -30,6 +30,7 @@ class ControladorCompra:
                                                   "dados_codigo": compra.dados.codigo,
                                                   "dados_produto": compra.dados.produto.nome,
                                                   "dados_preco": compra.dados.preco,
+                                                  "dados_loja": compra.dados.loja.nome,
                                                   "transportadora": compra.transportadora})
 
     def retornar(self):

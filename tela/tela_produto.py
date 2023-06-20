@@ -8,11 +8,12 @@ class TelaProduto:
         print('='*10, 'Menu Produtos', '='*10)
         print('1: Adicionar produto')
         print('2: Listar produtos')
+        print('3: Alterar produto')
         print('0: Retornar para o menu inicial\n')
         while True:
             try:
                 opcao = int(input('Opção: ').strip())
-                if opcao not in [0, 1, 2]:
+                if opcao not in [0, 1, 2, 3]:
                     print('Opção inválida, favor digite novamente!')
                 else:
                     return opcao
@@ -43,7 +44,6 @@ class TelaProduto:
     def mostra_produto(dados_produto):
         print("#" * 30)
         print("Nome do produto: ", dados_produto["nome"])
-        print("Loja relacionada: ", dados_produto["loja"])
         print("Categoria do produto: ", dados_produto["tipo"])
         print("#" * 30)
 
