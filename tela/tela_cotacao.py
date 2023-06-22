@@ -75,6 +75,14 @@ class TelaCotacao:
                 print("Valor inválido. Digite novamente")
             except TypeError:
                 print("A informação digitada deve ser um valor numérico!")
+                
+    def pega_produto(self):
+        while True:
+            try:
+                produto = input("Digite o produto: ")
+                return produto
+            except TypeError:
+                print("O produto informado deve ser uma string")
 
     @staticmethod
     def mostra_relatorio(dados_cotacao):

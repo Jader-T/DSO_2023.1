@@ -77,11 +77,12 @@ class ControladorCotacao:
     def gera_relatorio(self):
         valor_minimo = self.__tela_cotacao.pega_valor_inicial()
         valor_maximo = self.__tela_cotacao.pega_valor_final()
+        produto = self.__tela_cotacao.pega_produto()
 
         cotacoes_filtradas = []
 
         for cotacao in self.__cotacoes:
-            if valor_minimo <= cotacao.preco <= valor_maximo:
+            if valor_minimo <= cotacao.preco <= valor_maximo and cotacao.produto.nome == produto:
                 cotacoes_filtradas.append({"preco": cotacao.preco,
                                             "nome_produto": cotacao.produto.nome,
                                             "loja": cotacao.produto.loja.nome,

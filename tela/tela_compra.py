@@ -53,7 +53,7 @@ class TelaCompra:
             try:
                 data_texto = input("Digite a data inicial no formato dd/mm/aaaa: ").strip()
                 data = datetime.strptime(data_texto, '%d/%m/%Y')
-                return data
+                return data.strptime('%d/%m/%Y')
             except ValueError:
                 print("Data Inválida. Digite novamente.")
 
@@ -62,7 +62,7 @@ class TelaCompra:
             try:
                 data_texto = input("Digite a data final no formato dd/mm/aaaa: ")
                 data = datetime.strptime(data_texto, '%d/%m/%Y')
-                return data
+                return data.strptime('%d/%m/%Y')
             except ValueError:
                 print("Data inválida. Digite novamente.")
 
