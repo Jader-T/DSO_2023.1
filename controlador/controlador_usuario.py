@@ -40,10 +40,10 @@ class ControladorUsuarios:
         return True
 
     def altera_usuario(self):
-        self.lista_usuarios()
         novos_dados_usuario = self.__telaUsuarios.pega_dados_usuario()
-
         if "cpf" in novos_dados_usuario:
+            tipo_usuario = "Pessoa Física"
+            self.lista_usuarios(tipo_usuario)
             cpf_usuario = self.__telaUsuarios.selecionar_usuario_por_cpf()
             usuario = self.busca_usuario_por_cpf(cpf_usuario)
             if usuario is None:
@@ -58,6 +58,8 @@ class ControladorUsuarios:
             usuario.cpf = novos_dados_usuario["cpf"]
             usuario.senha = novos_dados_usuario["senha"]
         elif "cnpj" in novos_dados_usuario:
+            tipo_usuario = "cnpj"
+            self.lista_usuarios(tipo_usuario)
             cnpj_usuario = self.__telaUsuarios.selecionar_usuario_por_cnpj()
             usuario = self.busca_usuario_por_cnpj(cnpj_usuario)
             if usuario is None:
@@ -74,13 +76,11 @@ class ControladorUsuarios:
         else:
             self.__telaUsuarios.mostra_mensagem("Tipo de usuário inválido!")
             return
-
         self.__telaUsuarios.mostra_mensagem("Usuário alterado com sucesso!")
-        self.lista_usuarios()
 
     def exclui_usuario(self):
-        self.lista_usuarios()
         tipo_usuario = self.__telaUsuarios.seleciona_tipo_usuario()
+        self.lista_usuarios(tipo_usuario)
 
         if tipo_usuario == 'Pessoa Física':
             cpf_usuario = self.__telaUsuarios.selecionar_usuario_por_cpf()
@@ -90,24 +90,30 @@ class ControladorUsuarios:
                 self.__telaUsuarios.mostra_mensagem("Usuário excluido com sucesso!")
             else:
                 self.__telaUsuarios.mostra_mensagem("Usuário informado não existe")
-        elif tipo_usuario == 'Pessoa Juridica':
-            cpf_usuario = self.__telaUsuarios.selecionar_usuario_por_cnpj()
-            usuario = self.busca_usuario_por_cnpj(cpf_usuario)
+        elif tipo_usuario == 'Pessoa Jurídica':
+            cnpj_usuario = self.__telaUsuarios.selecionar_usuario_por_cnpj()
+            usuario = self.busca_usuario_por_cnpj(cnpj_usuario)
             if usuario is not None and isinstance(usuario, PessoaJuridica):
                 self.__usuario_DAO.remove(usuario.cnpj)
                 self.__telaUsuarios.mostra_mensagem("Usuário excluido com sucesso!")
             else:
                 self.__telaUsuarios.mostra_mensagem("Usuário informado não existe")
 
-    def lista_usuarios(self):
-        tipo_usuario = self.__telaUsuarios.seleciona_tipo_usuario()
+    def lista_usuarios(self, tipo_usuario=None):
+        if tipo_usuario is None:
+            tipo_usuario = self.__telaUsuarios.seleciona_tipo_usuario()
+
+        usuarios_listados = []
+
         for usuario in self.__usuario_DAO.get_all():
             if isinstance(usuario, PessoaFisica) and tipo_usuario == "Pessoa Física":
-                self.__telaUsuarios.mostra_usuario({"nome": usuario.nome, "email": usuario.email, "cpf": usuario.cpf})
+                usuarios_listados.append({"nome": usuario.nome, "email": usuario.email, "cpf": usuario.cpf})
             elif isinstance(usuario, PessoaJuridica) and tipo_usuario == "Pessoa Jurídica":
-                self.__telaUsuarios.mostra_usuario({"nome": usuario.nome, "email": usuario.email, "cnpj": usuario.cnpj})
+                usuarios_listados.append({"nome": usuario.nome, "email": usuario.email, "cnpj": usuario.cnpj})
+        if usuarios_listados:
+            self.__telaUsuarios.mostra_usuario(usuarios_listados)
         else:
-            pass
+            self.__telaUsuarios.mostra_mensagem('Nenhum usuário encontrado')
 
     def busca_usuario_por_cpf(self, cpf: int):
         for usuario in self.__usuario_DAO.get_all():

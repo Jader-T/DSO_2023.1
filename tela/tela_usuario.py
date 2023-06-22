@@ -117,45 +117,45 @@ class TelaUsuario:
                         cnpj = values["cnpj"]
                         window.close()
                         return {"nome": nome, "fone": fone, "email": email, "cnpj": cnpj, "senha": senha}
-
             window.close()
             return None
         except Exception as e:
             print("Erro ao obter dados do usuário", e)
             return None
 
-    def mostra_usuario(self, dados_usuario):
+    def mostra_usuario(self, usuarios):
         try:
-            tipo_usuario = ""
-            if "cpf" in dados_usuario:
-                tipo_usuario = "Pessoa Física"
-                layout = [
-                    [sg.Text(f"Tipo de usuário: {tipo_usuario}", font=('Arial', 14, 'bold'))],
-                    [sg.Text(f"Nome {dados_usuario['nome']}", font=('Arial', 14, 'bold'))],
-                    [sg.Text(f"Email {dados_usuario['email']}", font=('Arial', 14, 'bold'))],
-                    [sg.Text(f"Cpf {dados_usuario['cpf']}", font=('Arial', 14,'bold'))],
-                    [sg.Button("Fechar", font=('Arial', 14, 'bold'))],
-                ]
+            for dados_usuario in usuarios:
+                tipo_usuario = ""
+                if "cpf" in dados_usuario:
+                    tipo_usuario = "Pessoa Física"
+                    layout = [
+                        [sg.Text(f"Tipo de usuário: {tipo_usuario}", font=('Arial', 14, 'bold'))],
+                        [sg.Text(f"Nome {dados_usuario['nome']}", font=('Arial', 14, 'bold'))],
+                        [sg.Text(f"Email {dados_usuario['email']}", font=('Arial', 14, 'bold'))],
+                        [sg.Text(f"Cpf {dados_usuario['cpf']}", font=('Arial', 14, 'bold'))],
+                        [sg.Button("Proximo", font=('Arial', 14, 'bold'))],
+                    ]
 
-            else:
-                tipo_usuario = "Pessoa Jurídica"
-                layout = [
-                    [sg.Text(f"Tipo de usuário: {tipo_usuario}", font=('Arial', 14, 'bold'))],
-                    [sg.Text(f"Nome {dados_usuario['nome']}", font=('Arial', 14, 'bold'))],
-                    [sg.Text(f"Email {dados_usuario['email']}", font=('Arial', 14, 'bold'))],
-                    [sg.Text(f"Cnpj {dados_usuario['cnpj']}", font=('Arial', 14, 'bold'))],
-                    [sg.Button("Fechar", font=('Arial', 14, 'bold'))],
-                ]
+                else:
+                    tipo_usuario = "Pessoa Jurídica"
+                    layout = [
+                        [sg.Text(f"Tipo de usuário: {tipo_usuario}", font=('Arial', 14, 'bold'))],
+                        [sg.Text(f"Nome {dados_usuario['nome']}", font=('Arial', 14, 'bold'))],
+                        [sg.Text(f"Email {dados_usuario['email']}", font=('Arial', 14, 'bold'))],
+                        [sg.Text(f"Cnpj {dados_usuario['cnpj']}", font=('Arial', 14, 'bold'))],
+                        [sg.Button("Proximo", font=('Arial', 14, 'bold'))],
+                    ]
 
-            window = sg.Window('Informações do Usuário ', layout, size=(350, 400), element_justification='left')
+                window = sg.Window('Informações do Usuário ', layout, size=(350, 400), element_justification='left')
 
-            while True:
-                event, _ = window.read()
+                while True:
+                    event, _ = window.read()
 
-                if event == sg.WINDOW_CLOSED or event == "Fechar":
-                    break
+                    if event == sg.WINDOW_CLOSED or event == "Proximo":
+                        break
 
-            window.close()
+                window.close()
 
         except Exception as e:
             print('Erro ao exibir dados do usuário', repr(e))

@@ -17,6 +17,6 @@ class UsuarioDAO(DAO):
     def get(self, key: int):
         return super().get(key)
 
-    def remove(self, key: int):
-        if isinstance(key, int):
-            return super().remove(key)
+    def remove(self, key):
+        # if isinstance(key):
+        return super().remove(key)

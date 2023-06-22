@@ -45,8 +45,6 @@ class TelaSistema:
             [sg.Button(button_text="Menu de cotações", size=(15, 1), font=("Arial", 14, 'bold'))],
             [sg.Button(button_text="Menu de compras ", size=(15, 1), font=("Arial", 14, 'bold'))],
             [sg.Text("", size=(30, 1))],
-            [sg.Text("", size=(30, 1))],
-            [sg.Text("", size=(30, 1))],
             [sg.Button(button_text="Encerrar Sistema", size=(15, 1), font=('Arial', 14, 'bold'))],
         ]
         window = sg.Window("Shop Tracer", layout, element_justification='c'
@@ -81,10 +79,10 @@ class TelaSistema:
             [sg.Text("          Shop Tracer", font=("Arial", 20, "bold"))],
             [sg.Text("", size=(30, 1))],
             [sg.Text("Digite seu usuário:", font=("Arial", 14)),
-             sg.Input(key="-USUARIO-", size=(15, 1))],
+             sg.Input(key="usuario", size=(15, 1))],
             [sg.Text("", size=(30, 1))],
             [sg.Text("Digite sua senha:  ", font=("Arial", 14)),
-             sg.Input(key="-SENHA-", password_char="*", size=(15, 1))],
+             sg.Input(key="senha", password_char="*", size=(15, 1))],
             [sg.Text("", size=(30, 1))],
             [sg.Button("Confirmar", size=(15, 1))]
         ]
@@ -94,8 +92,8 @@ class TelaSistema:
         while True:
             event, values = window.read()
             if event == "Confirmar":
-                nome = values["-USUARIO-"].strip()
-                senha = values["-SENHA-"].strip()
+                nome = values["usuario"].strip()
+                senha = values["senha"].strip()
                 if nome != "" and senha != "":
                     break
                 sg.popup("Nome de usuário e senha não podem ser vazios!")
