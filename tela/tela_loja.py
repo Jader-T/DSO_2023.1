@@ -1,3 +1,4 @@
+import PySimpleGUI as sg
 
 
 class TelaLoja:
@@ -6,38 +7,57 @@ class TelaLoja:
 
     @staticmethod
     def mostra_opcoes_loja(self):
-        print('='*10, 'Menu Lojas', '='*10)
-        print('1: Adicionar loja')
-        print('2: Listar lojas')
-        print('3: Adicionar endereço de uma filial')
-        print('4: Listar endereço das filiais')
-        print('0: Retornar para o menu inicial\n')
+        layout = [
+            [sg.Text(text="Menu Lojas", font=('Arial', 16, 'bold'))],
+            [sg.Text(text='Escolha a opção:', font=('Arial', 14))],
+            [sg.Button(button_text="Adicionar loja", font=('Arial', 14, 'bold'))],
+            [sg.Button(button_text="Listar lojas", font=('Arial', 14, 'bold'))],
+            [sg.Button(button_text="Adicionar endereço de uma filial", font=('Arial', 14, 'bold'))],
+            [sg.Button(button_text="Listar endereço das filiais", font=('Arial', 14, 'bold'))],
+            [sg.Button(button_text="Retornar", font=('Arial', 14, 'bold'))],
+        ]
+        window = sg.Window("Cadastro de Usuários", layout, element_justification="center",
+                           size=(350, 400), font=('Arial', 14, 'bold'))
+
+        mapeamento_eventos = {
+            "Adicionar loja": 1,
+            "Listar lojas": 2,
+            "Adicionar endereço de uma filial": 3,
+            "Listar endereço das filiais": 4,
+            "Retornar": 0}
         while True:
-            try:
-                opcao = int(input('Opção: ').strip())
-                if opcao not in [0, 1, 2, 3, 4]:
-                    print('Opção inválida, por favor digite novamente!')
-                else:
-                    return opcao
-            except ValueError:
-                print("O valor digitado é inválido, favor digitar um número inteiro!")
-            except KeyboardInterrupt:
-                print("Você interrompeu a execução do programa!")
+            event, values = window.read()
+            if event in mapeamento_eventos:
+                opcao = mapeamento_eventos[event]
+                window.close()
+                return opcao
+
 
     @staticmethod
     def pega_dados_loja(self):
-        print('='*10, 'Dados Loja', '='*10)
-        while True:
-            try:
-                nome = input('Digite o nome da loja: ').strip()
-                site = input('Coloque aqui o link da loja: ').strip()
-                if not nome or not site:
-                    raise ValueError
-                return {"nome": nome, "site": site}
-            except ValueError:
-                print("Nome e site da loja são obrigatórios.")
-            except KeyboardInterrupt:
-                print("Você interrompeu a execução do programa!")
+        try:
+            layout = [
+                [sg.Text(text="Dados da Loja", font=('Arial', 12))],
+                [sg.Text(text="Nome:  ", font=('Arial', 14, 'bold')), sg.InputText(key="nome", size=(15, 1))],
+                [sg.Text(text="Site:  ", font=('Arial', 14, 'bold')), sg.InputText(key="site", size=(15, 1))],
+                [sg.Text('')],
+                [sg.Button(button_text="Confirmar")],
+            ]
+            window = sg.Window("Dados do Usuário", layout, element_justification="left", size=(350, 400))
+            while True:
+                event, values = window.read()
+                if event == sg.WINDOW_CLOSED:
+                    break
+                elif event == "Confirmar":
+                    nome = values["nome"]
+                    site = values["site"]
+                    window.close()
+                    return {"nome": nome, "site": site}
+            window.close()
+            return None
+        except Exception as e:
+            print("Erro ao obter dados da loja", e)
+            return None
 
     @staticmethod
     def mostra_loja(dados_loja):

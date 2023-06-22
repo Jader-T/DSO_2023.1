@@ -17,6 +17,7 @@ class ControladorLoja:
         loja = Loja(dados_loja["nome"], dados_loja["site"])
         self.__lojas.append(loja)
         self.__tela_loja.mostra_msg("\n***Loja adicionada!***\n")
+        return None
 
     def lista_lojas(self):
         if len(self.__lojas) == 0:
