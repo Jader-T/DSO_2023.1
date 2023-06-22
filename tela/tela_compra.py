@@ -68,7 +68,7 @@ class TelaCompra:
 
     @staticmethod
     def mostra_relatorio(dados_compra):
-        print("="*15,"Relatório de Compras","="*15)
+        print("="*15, "Relatório de Compras", "="*15)
         for compra in dados_compra:
             print("Data da compra: ", compra["data"])
             print("Código da cotação: ", compra["dados_codigo"])
@@ -77,10 +77,6 @@ class TelaCompra:
             print("Transportadora: ", compra["transportadora"])
             print("-" * 52)
         print("="*52)
-                      
-    @staticmethod
-    def mostra_compra(dados_compra):
-        print("#" * 30)
 
     def mostra_msg(self, msg):
         print(msg)

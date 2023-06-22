@@ -32,9 +32,6 @@ class ControladorProduto:
     def retornar_sistema(self):
         self.__controlador_sistema.abre_tela()
 
-    def retornar_cotacao(self):
-        self.__controlador_sistema.controlador_cotacao.abre_tela_cotacao()
-
     def busca_produto_pelo_nome(self, nome):
         for produto in self.__produtos:
             if produto.nome == nome:
