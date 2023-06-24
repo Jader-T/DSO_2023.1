@@ -153,3 +153,4 @@ class TelaLoja:
                 window.close()
         except Exception as e:
             print('Erro ao exibir dados dos endereços', repr(e))
+            

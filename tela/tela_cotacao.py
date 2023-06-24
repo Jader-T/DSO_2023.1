@@ -167,12 +167,3 @@ class TelaCotacao:
             print(f"Erro ao selecionar cotação: {ve}")
         except Exception as e:
             print(f"Erro ao selecionar cotação: {e}")
-
-        print('-'*10, "Selecionando a cotação", '-'*10)
-        while True:
-            try:
-                produto_cotacao = input("Informe o nome do produto da cotação: ").strip()
-                return produto_cotacao
-            except KeyboardInterrupt:
-                print("Você parou a execução do programa")
-            break

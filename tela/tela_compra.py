@@ -86,7 +86,7 @@ class TelaCompra:
             try:
                 data_texto = input("Digite a data inicial no formato dd/mm/aaaa: ").strip()
                 data = datetime.strptime(data_texto, '%d/%m/%Y')
-                return data
+                return data.strptime('%d/%m/%Y')
             except ValueError:
                 print("Data Inválida. Digite novamente.")
 
@@ -95,19 +95,21 @@ class TelaCompra:
             try:
                 data_texto = input("Digite a data final no formato dd/mm/aaaa: ")
                 data = datetime.strptime(data_texto, '%d/%m/%Y')
-                return data
+                return data.strptime('%d/%m/%Y')
             except ValueError:
                 print("Data inválida. Digite novamente.")
 
     @staticmethod
-    def mostra_relatorio(self, dados_compra):
-        print("="*10, "Relatório de Compras", "="*10)
-        print("Data da compra: ", dados_compra["data"])
-        print("Código da cotação: ", dados_compra["dados_codigo"])
-        print("Produto comprado: ", dados_compra["dados_produto"])
-        print("Preço: ", "R$", dados_compra["dados_preco"])
-        print("Transportadora: ", dados_compra["transportadora"])
-        print("#" * 30)
+    def mostra_relatorio(dados_compra):
+        print("="*15, "Relatório de Compras", "="*15)
+        for compra in dados_compra:
+            print("Data da compra: ", compra["data"])
+            print("Código da cotação: ", compra["dados_codigo"])
+            print("Produto comprado: ", compra["dados_produto"])
+            print("Preço: ", "R$", compra["dados_preco"])
+            print("Transportadora: ", compra["transportadora"])
+            print("-" * 52)
+        print("="*52)
 
     def mostra_msg(self, msg):
         sg.Popup(msg, font=('Arial', 14, 'bold'))
