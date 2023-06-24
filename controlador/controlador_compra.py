@@ -21,16 +21,17 @@ class ControladorCompra:
             self.__tela_compra.mostra_msg("\n***Compra registrada!!!***\n")
 
     def lista_compra(self):
+        compras_listadas = []
         if len(self.__compras) == 0:
             self.__tela_compra.mostra_msg("\nNão há compras registradas!\n")
             return
         else:
             for compra in self.__compras:
-                self.__tela_compra.mostra_compra({"data": compra.data_compra,
-                                                  "dados_codigo": compra.dados.codigo,
-                                                  "dados_produto": compra.dados.produto.nome,
-                                                  "dados_preco": compra.dados.preco,
-                                                  "transportadora": compra.transportadora})
+                compras_listadas.append({"data": compra.data_compra, "dados_codigo": compra.dados.codigo,
+                                         "dados_produto": compra.dados.produto.nome, "dados_preco": compra.dados.preco,
+                                         "dados_loja": compra.dados.loja.nome, "transportadora": compra.transportadora})
+            if compras_listadas:
+                self.__tela_compra.mostra_compra(compras_listadas)
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()
