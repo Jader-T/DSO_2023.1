@@ -1,4 +1,5 @@
 from datetime import datetime
+import PySimpleGUI as sg
 
 
 class TelaCompra:
@@ -7,46 +8,78 @@ class TelaCompra:
 
     @staticmethod
     def mostra_opcoes_compra(self):
-        print('=' * 10, 'Menu Compras', '=' * 10)
-        print('1: Registrar Compra')
-        print('2: Listar Compras')
-        print('3: Gerar relatorio')
-        print('0: Retornar para o menu inicial\n')
+        layout = [
+            [sg.Text(text="Menu de Compras", font=('Arial', 16, 'bold'))],
+            [sg.Text(text='Escolha a opção:', font=('Arial', 14))],
+            [sg.Button(button_text="Registrar compra", font=('Arial', 14, 'bold'))],
+            [sg.Button(button_text="Listar compras", font=('Arial', 14, 'bold'))],
+            [sg.Button(button_text="Gerar relatorio", font=('Arial', 14, 'bold'))],
+            [sg.Button(button_text="Retornar", font=('Arial', 14, 'bold'))],
+        ]
+        window = sg.Window("Registro de compras", layout, element_justification="center",
+                           size=(350, 400), font=('Arial', 14, 'bold'))
+
+        mapeamento_eventos = {
+            "Registrar compra": 1,
+            "Listar compras": 2,
+            "Gerar relatorio": 3,
+            "Retornar": 0}
         while True:
-            try:
-                opcao = int(input('Opção: ').strip())
-                if opcao not in [0, 1, 2, 3]:
-                    print('Opção inválida, favor digite novamente!')
-                else:
-                    return opcao
-            except ValueError:
-                print("O valor digitado é inválido, favor digitar um número inteiro!")
-            except KeyboardInterrupt:
-                print("Você interrompeu a execução do programa!")
+            event, values = window.read()
+            if event in mapeamento_eventos:
+                opcao = mapeamento_eventos[event]
+                window.close()
+                return opcao
 
     @staticmethod
     def pega_dados_compra(self):
-        print("=" * 10, "Dados Compra", "=" * 10)
-        while True:
-            transportadora = input('Digite o nome da transportadora: ').strip()
-            data_inserida = input('Digite a data de compra no formato DD/MM/AAAA: ').strip()
-            try:
-                data = datetime.strptime(data_inserida, '%d/%m/%Y')
-                return {"data": data.strftime('%d/%m/%Y'), "transportadora": transportadora}
-            except ValueError:
-                print("A data inserida é inválida. Tente novamente.")
-            except KeyboardInterrupt:
-                print("Você interrompeu a execução do programa!")
+        try:
+            layout = [
+                [sg.Text(text="Dados da compra", font=('Arial', 12))],
+                [sg.Text(text="Data da compra:  ", font=('Arial', 14, 'bold')), sg.InputText(key="data", size=(15, 1))],
+                [sg.Text(text="Transportadora:  ", font=('Arial', 14, 'bold')), sg.InputText(key="transportadora", size=(15, 1))],
+                [sg.Text('')],
+                [sg.Button(button_text="Confirmar")],
+            ]
+            window = sg.Window("Dados da Loja:", layout, element_justification="left", size=(350, 400))
+            while True:
+                event, values = window.read()
+                if event == sg.WINDOW_CLOSED:
+                    break
+                elif event == "Confirmar":
+                    data = values["data"]
+                    transportadora = values["transportadora"]
+                    window.close()
+                    return {"data": data, "transportadora": transportadora}
+            window.close()
+            return None
+        except Exception as e:
+            print("Erro ao obter dados da loja", e)
+            return None
 
     @staticmethod
     def mostra_compra(dados_compra):
-        print("#" * 30)
-        print("Data da compra: ", dados_compra["data"])
-        print("Código da cotação: ", dados_compra["dados_codigo"])
-        print("Produto comprado: ", dados_compra["dados_produto"])
-        print("Preço: ", "R$", dados_compra["dados_preco"])
-        print("Transportadora: ", dados_compra["transportadora"])
-        print("#" * 30)
+        try:
+            for compra in dados_compra:
+                layout = [
+                    [sg.Text(f"Data da compra: {compra['data']}", font=('Arial', 14, 'bold'))],
+                    [sg.Text(f"Código da cotação: {compra['dados_codigo']}", font=('Arial', 14, 'bold'))],
+                    [sg.Text(f"Produto comprado: {compra['dados_produto']}", font=('Arial', 14, 'bold'))],
+                    [sg.Text(f"Preço: {compra['dados_preco']}", font=('Arial', 14, 'bold'))],
+                    [sg.Text(f"Loja: {compra['dados_loja']}", font=('Arial', 14, 'bold'))],
+                    [sg.Text(f"Transportadora: {compra['transportadora']}", font=('Arial', 14, 'bold'))],
+                    [sg.Button("Proximo", font=('Arial', 14, 'bold'))],
+                ]
+                window = sg.Window('Informações da compra ', layout, size=(350, 400), element_justification='left')
+
+                while True:
+                    event, _ = window.read()
+                    if event == sg.WINDOW_CLOSED or event == "Proximo":
+                        break
+                window.close()
+        except Exception as e:
+            print('Erro ao exibir dados da loja', repr(e))
+
 
     def pega_data_inicial(self):
         while True:
@@ -79,4 +112,4 @@ class TelaCompra:
         print("="*52)
 
     def mostra_msg(self, msg):
-        print(msg)
+        sg.Popup(msg, font=('Arial', 14, 'bold'))

@@ -1,9 +1,11 @@
 from modelo.produto import Produto
-
+from modelo.loja import Loja
 
 class Cotacao:
-    def __init__(self, preco: float, produto: Produto, codigo: int):
+    def __init__(self, preco: float, produto: Produto, loja: Loja, codigo: int):
         self.__preco = preco
+        if isinstance(loja, Loja):
+            self.__loja = loja
         if isinstance(produto, Produto):
             self.__produto = produto
         self.__codigo = codigo
@@ -34,3 +36,12 @@ class Cotacao:
     def produto(self, produto: Produto):
         if isinstance(produto, Produto):
             self.__produto = produto
+
+    @property
+    def loja(self):
+        return self.__loja
+
+    @loja.setter
+    def loja(self, loja: Loja):
+        if isinstance(loja, Loja):
+            self.__loja = loja
