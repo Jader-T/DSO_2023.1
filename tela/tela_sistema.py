@@ -43,7 +43,7 @@ class TelaSistema:
             [sg.Button(button_text="Menu de lojas", size=(15, 1), font=("Arial", 14, 'bold'))],
             [sg.Button(button_text="Menu de produtos", size=(15, 1), font=("Arial", 14, 'bold'))],
             [sg.Button(button_text="Menu de cotações", size=(15, 1), font=("Arial", 14, 'bold'))],
-            [sg.Button(button_text="Menu de compras ", size=(15, 1), font=("Arial", 14, 'bold'))],
+            [sg.Button(button_text="Menu de compras", size=(15, 1), font=("Arial", 14, 'bold'))],
             [sg.Text("", size=(30, 1))],
             [sg.Button(button_text="Encerrar Sistema", size=(15, 1), font=('Arial', 14, 'bold'))],
         ]
@@ -70,7 +70,6 @@ class TelaSistema:
             elif event == "Encerrar Sistema" or event == sg.WINDOW_CLOSED:
                 opcao = 0
                 break
-
         window.close()
         return opcao
 
