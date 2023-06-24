@@ -15,13 +15,15 @@ class ControladorProduto:
         self.__tela_produto.mostra_msg("\n***Produto adicionado!***\n")
 
     def lista_produtos(self):
+        produtos_listados = []
         if len(self.__produtos) == 0:
             self.__tela_produto.mostra_msg("\nNão há produtos cadastrados!\n")
             return
         else:
             for produto in self.__produtos:
-                self.__tela_produto.mostra_produto({"nome": produto.nome,
-                                                    "tipo": produto.tipo})
+                produtos_listados.append({"nome": produto.nome, "tipo": produto.tipo})
+            if produtos_listados:
+                self.__tela_produto.mostra_produto(produtos_listados)
 
     def abre_tela_produto(self):
         lista_opcoes = {1: self.inclui_produto, 2: self.lista_produtos,

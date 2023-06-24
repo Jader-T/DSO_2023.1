@@ -13,21 +13,23 @@ class ControladorCotacao:
         dados_cotacao = self.__tela_cotacao.pega_dados_cotacao()
         produto = self.__controlador_sistema.controlador_produto.seleciona_produto()
         loja = self.__controlador_sistema.controlador_loja.seleciona_loja()
-        if produto is not None:
+        if produto and loja is not None:
             cotacao = Cotacao(dados_cotacao["preco"], produto, loja, randint(0, 200))
             self.__cotacoes.append(cotacao)
             self.__tela_cotacao.mostra_msg("\n***Cotação incluída***\n")
 
     def lista_cotacao(self):
+        cotacoes_listadas = []
         if len(self.__cotacoes) == 0:
             self.__tela_cotacao.mostra_msg("\nNão há cotações cadastradas!\n")
             return
         else:
             for cotacao in self.__cotacoes:
-                self.__tela_cotacao.mostra_cotacao({"preco": cotacao.preco,
-                                                    "nome_produto": cotacao.produto.nome,
-                                                    "loja": cotacao.loja.nome,
-                                                    "codigo": cotacao.codigo})
+                cotacoes_listadas.append({"preco": cotacao.preco, "nome_produto": cotacao.produto.nome,
+                                          "loja": cotacao.loja.nome, "codigo": cotacao.codigo})
+            if cotacoes_listadas:
+                self.__tela_cotacao.mostra_cotacao(cotacoes_listadas)
+
 
     def busca_cotacao_pelo_codigo(self, codigo):
         for cotacao in self.__cotacoes:
@@ -45,8 +47,8 @@ class ControladorCotacao:
 
     def seleciona_cotacao(self):
         while True:
-            codigo_cotacao = int(self.__tela_cotacao.pega_codigo_cotacao())
-            dados = self.busca_cotacao_pelo_codigo(codigo_cotacao)
+            codigo_cotacao = self.__tela_cotacao.pega_codigo_cotacao()
+            dados = self.busca_cotacao_pelo_codigo(int(codigo_cotacao))
             if dados is not None:
                 return dados
             else:

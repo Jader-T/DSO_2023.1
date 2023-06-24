@@ -16,7 +16,7 @@ class TelaLoja:
             [sg.Button(button_text="Listar endereço das filiais", font=('Arial', 14, 'bold'))],
             [sg.Button(button_text="Retornar", font=('Arial', 14, 'bold'))],
         ]
-        window = sg.Window("Cadastro de Usuários", layout, element_justification="center",
+        window = sg.Window("Cadastro de Lojas", layout, element_justification="center",
                            size=(350, 400), font=('Arial', 14, 'bold'))
 
         mapeamento_eventos = {
@@ -32,7 +32,6 @@ class TelaLoja:
                 window.close()
                 return opcao
 
-
     @staticmethod
     def pega_dados_loja(self):
         try:
@@ -43,7 +42,7 @@ class TelaLoja:
                 [sg.Text('')],
                 [sg.Button(button_text="Confirmar")],
             ]
-            window = sg.Window("Dados do Usuário", layout, element_justification="left", size=(350, 400))
+            window = sg.Window("Dados da Loja:", layout, element_justification="left", size=(350, 400))
             while True:
                 event, values = window.read()
                 if event == sg.WINDOW_CLOSED:
@@ -61,36 +60,96 @@ class TelaLoja:
 
     @staticmethod
     def mostra_loja(dados_loja):
-        print("#" * 30)
-        print("Nome da loja: ", dados_loja["nome"])
-        print("Site da loja: ", dados_loja["site"])
-        print("#" * 30)
+        try:
+            for lojas in dados_loja:
+                layout = [
+                    [sg.Text(f"Nome: {lojas['nome']}", font=('Arial', 14, 'bold'))],
+                    [sg.Text(f"Site: {lojas['site']}", font=('Arial', 14, 'bold'))],
+                    [sg.Button("Proximo", font=('Arial', 14, 'bold'))],
+                ]
+                window = sg.Window('Informações da Loja ', layout, size=(350, 400), element_justification='left')
+
+                while True:
+                    event, _ = window.read()
+                    if event == sg.WINDOW_CLOSED or event == "Proximo":
+                        break
+                window.close()
+        except Exception as e:
+            print('Erro ao exibir dados da loja', repr(e))
 
     def pega_nome_loja(self):
-        print('-'*10, "Selecionando a loja", '-'*10)
-        return input("Informe o nome da loja: ")
+        try:
+            layout = [
+                [sg.Text("Nome da loja que deseja selecionar:", font=('Arial', 12, 'bold'))],
+                [sg.Input(key='nome', size=(20, 1))],
+                [sg.Button("Selecionar", size=(15, 1), font=('Arial', 14, 'bold'))],
+                [sg.Text('')],
+            ]
+            window = sg.Window("Selecionar uma loja", layout, element_justification='center')
+
+            while True:
+                event, values = window.read()
+                if event == sg.WINDOW_CLOSED:
+                    nome = None
+                    break
+
+                elif event == "Selecionar":
+                    nome = values["nome"]
+                    break
+            window.close()
+
+            if not nome:
+                raise ValueError("\nO nome da loja não pode estar vazio.\n")
+            return nome
+        except ValueError as ve:
+            print(f"Erro ao selecionar loja: {ve}")
+        except Exception as e:
+            print(f"Erro ao selecionar loja: {e}")
 
     def mostra_msg(self, msg):
-        print(msg)
+        sg.Popup(msg, font=('Arial', 14, 'bold'))
 
     def pega_dados_endereco(self):
-        print('-' * 10, "Informe a localidade da filial", '-' * 10)
-        while True:
-            try:
-                pais = input('Digite o país: ')
-                estado = input('Digite o estado: ')
-                if not pais or not estado:
-                    raise ValueError
-                return {"pais": pais, "estado": estado}
-            except ValueError:
-                print("Pais e estado são obrigatórios.")
-            except KeyboardInterrupt:
-                print("Você interrompeu a execução do programa!")
+        try:
+            layout = [
+                [sg.Text(text="Dados do endereço", font=('Arial', 12))],
+                [sg.Text(text="Pais:  ", font=('Arial', 14, 'bold')), sg.InputText(key="pais", size=(15, 1))],
+                [sg.Text(text="Estado:  ", font=('Arial', 14, 'bold')), sg.InputText(key="estado", size=(15, 1))],
+                [sg.Text('')],
+                [sg.Button(button_text="Confirmar")],
+            ]
+            window = sg.Window("Dados do endereço", layout, element_justification="left", size=(350, 400))
+            while True:
+                event, values = window.read()
+                if event == sg.WINDOW_CLOSED:
+                    break
+                elif event == "Confirmar":
+                    pais = values["pais"]
+                    estado = values["estado"]
+                    window.close()
+                    return {"pais": pais, "estado": estado}
+            window.close()
+            return None
+        except Exception as e:
+            print("Erro ao obter dados do endereço", e)
+            return None
 
     @staticmethod
     def mostra_enderecos(dados_endereco):
-        print("#" * 30)
-        print("Endereços da loja selecionada:\n")
-        print("Pais: ", dados_endereco["pais"])
-        print("Estado: ", dados_endereco["estado"])
-        print("#" * 30)
+        try:
+            for endereco in dados_endereco:
+                layout = [
+                    [sg.Text(text="Endereços da loja selecionada", font=('Arial', 16))],
+                    [sg.Text(f"Pais: {endereco['pais']}", font=('Arial', 14, 'bold'))],
+                    [sg.Text(f"Estado: {endereco['estado']}", font=('Arial', 14, 'bold'))],
+                    [sg.Button("Proximo", font=('Arial', 14, 'bold'))],
+                ]
+                window = sg.Window('Dados dos endereços', layout, size=(350, 400), element_justification='left')
+
+                while True:
+                    event, _ = window.read()
+                    if event == sg.WINDOW_CLOSED or event == "Proximo":
+                        break
+                window.close()
+        except Exception as e:
+            print('Erro ao exibir dados dos endereços', repr(e))

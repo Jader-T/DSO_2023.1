@@ -20,23 +20,32 @@ class ControladorLoja:
         return None
 
     def lista_lojas(self):
+        lojas_listadas = []
         if len(self.__lojas) == 0:
             self.__tela_loja.mostra_msg("\nNão há lojas cadastradas!\n")
             return
         else:
+            '''for loja in self.__lojas:
+                self.__tela_loja.mostra_loja({"nome": loja.nome, "site": loja.site})'''
             for loja in self.__lojas:
-                self.__tela_loja.mostra_loja({"nome": loja.nome, "site": loja.site})
+                lojas_listadas.append({"nome": loja.nome, "site": loja.site})
+            if lojas_listadas:
+                self.__tela_loja.mostra_loja(lojas_listadas)
 
     def add_endereco(self):
         loja = self.seleciona_loja()
-        dados_endereco = self.__tela_loja.pega_dados_endereco()
-        Loja.incluir_endereco(loja, dados_endereco["pais"], dados_endereco["estado"])
-        self.__tela_loja.mostra_msg("\nEndereço adicionado!\n")
+        if loja is not None:
+            dados_endereco = self.__tela_loja.pega_dados_endereco()
+            Loja.incluir_endereco(loja, dados_endereco["pais"], dados_endereco["estado"])
+            self.__tela_loja.mostra_msg("\nEndereço adicionado!\n")
 
     def lista_enderecos(self):
+        enderecos_listados = []
         loja = self.seleciona_loja()
         for enderecos in loja.enderecos_filial:
-            self.__tela_loja.mostra_enderecos({"pais": enderecos.pais, "estado": enderecos.estado})
+            enderecos_listados.append({"pais": enderecos.pais, "estado": enderecos.estado})
+        if enderecos_listados:
+            self.__tela_loja.mostra_enderecos(enderecos_listados)
 
     def retornar_sistema(self):
         self.__controlador_sistema.abre_tela()
