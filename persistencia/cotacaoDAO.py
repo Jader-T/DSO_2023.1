@@ -8,7 +8,7 @@ class CotacaoDAO(DAO):
 
     def add(self, cotacao: Cotacao):
         if isinstance(cotacao, Cotacao):
-            super().add(cotacao.produto.nome, cotacao)
+            super().add(cotacao.codigo, cotacao)
 
     def get(self, key: int):
         return super().get(key)

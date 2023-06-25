@@ -99,7 +99,7 @@ class TelaCotacao:
 
             if not codigo:
                 raise ValueError("\nO codigo da cotação não pode estar vazio.\n")
-            return codigo
+            return int(codigo)
         except ValueError as ve:
             print(f"Erro ao selecionar cotação: {ve}")
         except Exception as e:

@@ -72,10 +72,10 @@ class ControladorCotacao:
         self.__controlador_sistema.controlador_compra.abre_tela_compra()
 
     def remover_cotacao(self):
-        produto_cotacao = self.__tela_cotacao.pega_nome_cotacao()
-        cotacao = self.busca_cotacao_pelo_nome(produto_cotacao)
+        codigo_cotacao = self.__tela_cotacao.pega_codigo_cotacao()
+        cotacao = self.busca_cotacao_pelo_codigo(codigo_cotacao)
         if cotacao is not None:
-            self.__cotacao_DAO.remove(cotacao)
+            self.__cotacao_DAO.remove(cotacao.codigo)
             self.__tela_cotacao.mostra_msg("\n***Cotação removida!***\n")
         else:
             self.__tela_cotacao.mostra_msg("\nCotação informada não existe\n")

@@ -35,7 +35,7 @@ class ControladorLoja:
         loja = self.seleciona_loja()
         if loja is not None:
             dados_endereco = self.__tela_loja.pega_dados_endereco()
-            Loja.incluir_endereco(loja, dados_endereco["pais"], dados_endereco["estado"])
+            loja.incluir_endereco(dados_endereco["pais"], dados_endereco["estado"])
             self.__tela_loja.mostra_msg("\nEndereço adicionado!\n")
 
     def lista_enderecos(self):
