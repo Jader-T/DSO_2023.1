@@ -34,17 +34,6 @@ class ControladorUsuarios:
         else:
             self.__telaUsuarios.mostra_mensagem("\nTipo de usuário inválido!\n")
             return False
-
-        usuario_ja_existe = False
-        if usuario not in self.__usuario_DAO.get_all():
-            for user in self.__usuario_DAO.get_all():
-                if user.cpf == usuario.cpf:
-                    usuario_ja_existe = True
-
-        if usuario_ja_existe:
-            self.__telaUsuarios.mostra_mensagem_erro("Usuario ja existe")
-            return False
-
         self.__usuario_DAO.add(usuario)
         self.__telaUsuarios.mostra_mensagem("\nUsuário adicionado com sucesso!\n")
         return True
@@ -68,14 +57,14 @@ class ControladorUsuarios:
             usuario.cpf = novos_dados_usuario["cpf"]
             usuario.senha = novos_dados_usuario["senha"]
         elif "cnpj" in novos_dados_usuario:
-            tipo_usuario = "cnpj"
+            tipo_usuario = "Pessoa Jurídica"
             self.lista_usuarios(tipo_usuario)
             cnpj_usuario = self.__telaUsuarios.selecionar_usuario_por_cnpj()
             usuario = self.busca_usuario_por_cnpj(cnpj_usuario)
             if usuario is None:
                 self.__telaUsuarios.mostra_mensagem("Usuário não encontrado!")
                 return
-            if not isinstance(usuario, PessoaFisica):
+            if not isinstance(usuario, PessoaJuridica):
                 self.__telaUsuarios.mostra_mensagem("\nNão é possível alterar o tipo do usuário!")
                 return
             usuario.nome = novos_dados_usuario["nome"]
