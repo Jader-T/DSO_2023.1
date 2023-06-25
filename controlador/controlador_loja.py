@@ -1,36 +1,35 @@
 from modelo.loja import Loja
 from tela.tela_loja import TelaLoja
-
+from persistencia.lojaDAO import LojaDAO
 
 class ControladorLoja:
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
-        self.__lojas = []
+        #self.__lojas = []
         self.__tela_loja = TelaLoja(self)
+        self.__loja_DAO = LojaDAO()
 
-    ''''@property
-    def enderecos(self):
-        return self.__enderecos'''
+    @property
+    def lojas(self):
+        return self.__loja_DAO.get_all()
 
     def inclui_loja(self):
         dados_loja = self.__tela_loja.pega_dados_loja(self)
         loja = Loja(dados_loja["nome"], dados_loja["site"])
-        self.__lojas.append(loja)
+        self.__loja_DAO.add(loja)
         self.__tela_loja.mostra_msg("\n***Loja adicionada!***\n")
         return None
 
     def lista_lojas(self):
         lojas_listadas = []
-        if len(self.__lojas) == 0:
-            self.__tela_loja.mostra_msg("\nNão há lojas cadastradas!\n")
-            return
+        '''for loja in self.__lojas:
+            self.__tela_loja.mostra_loja({"nome": loja.nome, "site": loja.site})'''
+        for loja in self.__loja_DAO.get_all():
+            lojas_listadas.append({"nome": loja.nome, "site": loja.site})
+        if lojas_listadas:
+            self.__tela_loja.mostra_loja(lojas_listadas)
         else:
-            '''for loja in self.__lojas:
-                self.__tela_loja.mostra_loja({"nome": loja.nome, "site": loja.site})'''
-            for loja in self.__lojas:
-                lojas_listadas.append({"nome": loja.nome, "site": loja.site})
-            if lojas_listadas:
-                self.__tela_loja.mostra_loja(lojas_listadas)
+            self.__tela_loja.mostra_msg('Nenhuma loja encontrada')
 
     def add_endereco(self):
         loja = self.seleciona_loja()
@@ -57,7 +56,7 @@ class ControladorLoja:
             lista_opcoes[self.__tela_loja.mostra_opcoes_loja(self)]()
 
     def busca_loja_pelo_nome(self, nome):
-        for loja in self.__lojas:
+        for loja in self.__loja_DAO.get_all():
             if loja.nome == nome:
                 return loja
         else:

@@ -1,4 +1,6 @@
 from modelo.cotacao import Cotacao
+from modelo.loja import Loja
+from modelo.produto import Produto
 
 
 class Compra:
@@ -34,3 +36,4 @@ class Compra:
     def transportadora(self, transportadora: str):
         if isinstance(transportadora, str):
             self.__transportadora = transportadora
+
