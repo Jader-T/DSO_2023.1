@@ -1,3 +1,5 @@
+import datetime
+
 from tela.tela_compra import TelaCompra
 from modelo.compra import Compra
 import time
@@ -43,7 +45,8 @@ class ControladorCompra:
         compras_filtradas = []
 
         for compra in self.__compras:
-            if data_inicial <= compra.data_compra <= data_final:
+            data_compra = datetime.datetime.strptime(compra.data_compra, '%d/%m/%Y')
+            if data_inicial <= data_compra <= data_final:
                 compras_filtradas.append({"data": compra.data_compra,
                                                 "dados_codigo": compra.dados.codigo,
                                                 "dados_produto": compra.dados.produto.nome,

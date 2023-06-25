@@ -105,36 +105,107 @@ class TelaCotacao:
         except Exception as e:
             print(f"Erro ao selecionar cotação: {e}")
 
+# -------------------- relatorio ----------------------------------#
+
     def pega_valor_inicial(self):
         while True:
-            try:
-                valor = input("Digite o valor mínimo: ")
-                preco = float(valor)
-                return preco
-            except ValueError:
-                print("Valor inválido. Digite novamente")
-            except TypeError:
-                print("A informação digitada deve ser um valor numérico!")
+            layout = [
+                [sg.Text("Geração de relatório", font=("Arial", 16, "bold"))],
+                [sg.Text('Valor minimo', font=('Arial', 14, 'bold')), sg.Input("Digite o valor mínimo: ", key='valor_minimo')],
+                [sg.Button("Selecionar", font=('Arial', 14, 'bold'))],
+
+            ]
+            window = sg.Window("Geração de relatório", layout, size=(300, 400))
+
+            while True:
+                event, values = window.read()
+
+                if event == sg.WINDOW_CLOSED:
+                    valor_inicial = None
+                    break
+                elif event == "Selecionar":
+                    valor_inicial = values["valor_minimo"]
+                    break
+
+            window.close()
+
+            if not valor_inicial:
+                raise ValueError("O valor inicial não pode estar vazio.")
+            return valor_inicial
 
     def pega_valor_final(self):
         while True:
-            try:
-                valor = input("Digite o valor máximo: ")
-                preco = float(valor)
-                return preco
-            except ValueError:
-                print("Valor inválido. Digite novamente")
-            except TypeError:
-                print("A informação digitada deve ser um valor numérico!")
+            layout = [
+                [sg.Text("Filtros do relatório", font=("Arial", 16, "bold"))],
+                [sg.Text('Valor maximo:', font=('Arial', 14, 'bold')), sg.Input("Digite o valor máximo: ", key='valor_maximo')],
+                [sg.Button("Selecionar", font=('Arial', 14, 'bold'))],
+            ]
+            window = sg.Window("Geração de relatório", layout, size=(300, 400))
+
+            while True:
+                event, values = window.read()
+
+                if event == sg.WINDOW_CLOSED:
+                    valor_final = None
+                    break
+                elif event == "Selecionar":
+                    valor_final = values["valor_maximo"]
+                    break
+
+            window.close()
+
+            if not valor_final:
+                raise ValueError("O valor inicial não pode estar vazio.")
+            return valor_final
+
+    def pega_produto(self):
+        while True:
+            layout = [
+                [sg.Text("Filtros do relatório", font=("Arial", 16, "bold"))],
+                [sg.Text('Produto:', font=('Aria', 14, 'bold')), sg.Input("Digite o produto: ", key='produto')],
+                [sg.Button("Selecionar", font=('Arial', 14, 'bold'))],
+
+            ]
+            window = sg.Window("Dados para o relatório", layout, size=(300, 400))
+
+            while True:
+                event, values = window.read()
+
+                if event == sg.WINDOW_CLOSED:
+                    produto = None
+                    break
+                elif event == "Selecionar":
+                    produto = values["produto"]
+                    break
+
+            window.close()
+
+            if not produto:
+                raise ValueError("O valor inicial não pode estar vazio.")
+            return produto
 
     @staticmethod
     def mostra_relatorio(dados_cotacao):
-        print("="*10, "Relatório de Cotações", "="*10)
-        print("Preço da cotação: ", "R$", dados_cotacao["preco"])
-        print("Nome do produto: ", dados_cotacao["nome_produto"])
-        print("Loja relacionada: ", dados_cotacao["loja"])
-        print("Código da cotação: ", dados_cotacao["codigo"])
-        print("=" * 42)
+        layout = [
+            [sg.Text(text=("=" * 10, "Relatório de Cotações", "=" * 10))],
+        ]
+
+        for cotacao in dados_cotacao:
+            layout.append([sg.Text(f"Preço da cotação: {cotacao['preco']}", font=('Arial', 14, 'bold'))])
+            layout.append([sg.Text(f"Nome do produto: {cotacao['nome_produto']}", font=('Arial', 14, 'bold'))])
+            layout.append([sg.Text(f"Loja relacionada: {cotacao['loja']}", font=('Arial', 14, 'bold'))])
+            layout.append([sg.Text(f"Código da cotação: {cotacao['codigo']}", font=('Arial', 14, 'bold'))])
+            layout.append([sg.Text("-" * 90)])
+
+        layout.append([sg.Button("Fechar", font=('Arial', 14, 'bold'))])
+
+        window = sg.Window("Relatório de cotação", layout)
+
+        event, _ = window.read()
+
+        window.close()
+
+    # ---------------------------------------------------------------------------#
 
     def mostra_msg(self, msg):
         sg.Popup(msg, font=('Arial', 14, 'bold'))

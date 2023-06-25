@@ -2,11 +2,10 @@ from tela.tela_usuario import TelaUsuario
 from modelo.pessoa_fisica import PessoaFisica
 from modelo.pessoa_juridica import PessoaJuridica
 from persistencia.usuarioDAO import UsuarioDAO
-
+from excecoes.usuarioJahExiste import UsuarioJahExiste
 
 class ControladorUsuarios:
     def __init__(self, controlador_sistema):
-        # self.__usuarios = []
         self.__usuario_DAO = UsuarioDAO()
         self.__telaUsuarios = TelaUsuario()
         self.__controlador_sistema = controlador_sistema
@@ -35,6 +34,17 @@ class ControladorUsuarios:
         else:
             self.__telaUsuarios.mostra_mensagem("\nTipo de usuário inválido!\n")
             return False
+
+        usuario_ja_existe = False
+        if usuario not in self.__usuario_DAO.get_all():
+            for user in self.__usuario_DAO.get_all():
+                if user.cpf == usuario.cpf:
+                    usuario_ja_existe = True
+
+        if usuario_ja_existe:
+            self.__telaUsuarios.mostra_mensagem_erro("Usuario ja existe")
+            return False
+
         self.__usuario_DAO.add(usuario)
         self.__telaUsuarios.mostra_mensagem("\nUsuário adicionado com sucesso!\n")
         return True

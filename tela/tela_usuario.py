@@ -195,6 +195,9 @@ class TelaUsuario:
         except Exception as e:
             print(f"Erro ao selecionar usuário: {e}")
 
+    def mostra_mensagem_erro(self, msg):
+        sg.PopupError(msg, font=('Arial', 14, 'bold'))
+
     def selecionar_usuario_por_cnpj(self):
         try:
             layout = [
