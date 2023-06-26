@@ -1,29 +1,32 @@
 from modelo.produto import Produto
 from tela.tela_produto import TelaProduto
-
+from persistencia.produtoDAO import ProdutoDAO
 
 class ControladorProduto:
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
-        self.__produtos = []
+        #self.__produtos = []
         self.__tela_produto = TelaProduto(self)
+        self.__produto_DAO = ProdutoDAO()
+
+    @property
+    def produtos(self):
+        return self.__produto_DAO.get_all()
 
     def inclui_produto(self):
         dados_produtos = self.__tela_produto.pega_dados_produto()
         produto = Produto(dados_produtos["nome"], dados_produtos["tipo"])
-        self.__produtos.append(produto)
+        self.__produto_DAO.add(produto)
         self.__tela_produto.mostra_msg("\n***Produto adicionado!***\n")
 
     def lista_produtos(self):
         produtos_listados = []
-        if len(self.__produtos) == 0:
-            self.__tela_produto.mostra_msg("\nNão há produtos cadastrados!\n")
-            return
+        for produto in self.__produto_DAO.get_all():
+            produtos_listados.append({"nome": produto.nome, "tipo": produto.tipo})
+        if produtos_listados:
+            self.__tela_produto.mostra_produto(produtos_listados)
         else:
-            for produto in self.__produtos:
-                produtos_listados.append({"nome": produto.nome, "tipo": produto.tipo})
-            if produtos_listados:
-                self.__tela_produto.mostra_produto(produtos_listados)
+            self.__tela_produto.mostra_msg('Nenhum produto encontrado')
 
     def abre_tela_produto(self):
         lista_opcoes = {1: self.inclui_produto, 2: self.lista_produtos,
@@ -35,7 +38,7 @@ class ControladorProduto:
         self.__controlador_sistema.abre_tela()
 
     def busca_produto_pelo_nome(self, nome):
-        for produto in self.__produtos:
+        for produto in self.__produto_DAO.get_all():
             if produto.nome == nome:
                 return produto
         else:

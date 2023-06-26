@@ -1,13 +1,18 @@
 from modelo.cotacao import Cotacao
 from tela.tela_cotacao import TelaCotacao
 from random import randint
+from persistencia.cotacaoDAO import CotacaoDAO
 
 
 class ControladorCotacao:
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
-        self.__cotacoes = []
         self.__tela_cotacao = TelaCotacao(self)
+        self.__cotacao_DAO = CotacaoDAO()
+
+    @property
+    def cotacoes(self):
+        return self.__cotacao_DAO.get_all()
 
     def inclui_cotacao(self):
         dados_cotacao = self.__tela_cotacao.pega_dados_cotacao()
@@ -15,31 +20,29 @@ class ControladorCotacao:
         loja = self.__controlador_sistema.controlador_loja.seleciona_loja()
         if produto and loja is not None:
             cotacao = Cotacao(dados_cotacao["preco"], produto, loja, randint(0, 200))
-            self.__cotacoes.append(cotacao)
+            self.__cotacao_DAO.add(cotacao)
             self.__tela_cotacao.mostra_msg("\n***Cotação incluída***\n")
 
     def lista_cotacao(self):
         cotacoes_listadas = []
-        if len(self.__cotacoes) == 0:
-            self.__tela_cotacao.mostra_msg("\nNão há cotações cadastradas!\n")
-            return
+        for cotacao in self.__cotacao_DAO.get_all():
+            cotacoes_listadas.append({"preco": cotacao.preco, "nome_produto": cotacao.produto.nome,
+                                      "loja": cotacao.loja.nome, "codigo": cotacao.codigo})
+        if cotacoes_listadas:
+            self.__tela_cotacao.mostra_cotacao(cotacoes_listadas)
         else:
-            for cotacao in self.__cotacoes:
-                cotacoes_listadas.append({"preco": cotacao.preco, "nome_produto": cotacao.produto.nome,
-                                          "loja": cotacao.loja.nome, "codigo": cotacao.codigo})
-            if cotacoes_listadas:
-                self.__tela_cotacao.mostra_cotacao(cotacoes_listadas)
+            self.__tela_cotacao.mostra_msg('Nenhuma cotação encontrada')
 
     def busca_cotacao_pelo_codigo(self, codigo):
-        for cotacao in self.__cotacoes:
+        for cotacao in self.__cotacao_DAO.get_all():
             if cotacao.codigo == codigo:
                 return cotacao
         else:
             return None
 
     def busca_cotacao_pelo_nome(self, produto_cotacao):
-        for cotacao in self.__cotacoes:
-            if cotacao.produto.nome == produto_cotacao:
+        for cotacao in self.__cotacao_DAO.get_all():
+            if cotacao.produto.nome == produto_cotacao.nome:
                 return cotacao
         else:
             return None
@@ -68,10 +71,10 @@ class ControladorCotacao:
         self.__controlador_sistema.controlador_compra.abre_tela_compra()
 
     def remover_cotacao(self):
-        produto_cotacao = self.__tela_cotacao.pega_nome_cotacao()
-        cotacao = self.busca_cotacao_pelo_nome(produto_cotacao)
+        codigo_cotacao = self.__tela_cotacao.pega_codigo_cotacao()
+        cotacao = self.busca_cotacao_pelo_codigo(codigo_cotacao)
         if cotacao is not None:
-            self.__cotacoes.remove(cotacao)
+            self.__cotacao_DAO.remove(cotacao.codigo)
             self.__tela_cotacao.mostra_msg("\n***Cotação removida!***\n")
         else:
             self.__tela_cotacao.mostra_msg("\nCotação informada não existe\n")
