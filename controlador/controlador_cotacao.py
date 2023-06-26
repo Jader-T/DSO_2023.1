@@ -30,7 +30,6 @@ class ControladorCotacao:
             if cotacoes_listadas:
                 self.__tela_cotacao.mostra_cotacao(cotacoes_listadas)
 
-
     def busca_cotacao_pelo_codigo(self, codigo):
         for cotacao in self.__cotacoes:
             if cotacao.codigo == codigo:
@@ -78,8 +77,8 @@ class ControladorCotacao:
             self.__tela_cotacao.mostra_msg("\nCotação informada não existe\n")
 
     def gera_relatorio(self):
-        valor_minimo = self.__tela_cotacao.pega_valor_inicial()
-        valor_maximo = self.__tela_cotacao.pega_valor_final()
+        valor_minimo = float(self.__tela_cotacao.pega_valor_inicial())
+        valor_maximo = float(self.__tela_cotacao.pega_valor_final())
         produto = self.__tela_cotacao.pega_produto()
 
         cotacoes_filtradas = []
@@ -87,12 +86,11 @@ class ControladorCotacao:
         for cotacao in self.__cotacoes:
             if valor_minimo <= cotacao.preco <= valor_maximo and cotacao.produto.nome == produto:
                 cotacoes_filtradas.append({"preco": cotacao.preco,
-                                            "nome_produto": cotacao.produto.nome,
-                                            "loja": cotacao.produto.loja.nome,
-                                            "codigo": cotacao.codigo})
+                                           "nome_produto": cotacao.produto.nome,
+                                           "loja": cotacao.loja.nome,
+                                           "codigo": cotacao.codigo})
 
         if len(cotacoes_filtradas) == 0:
             self.__tela_cotacao.mostra_msg("\nNão há cotacoes registradas dentro da faixa de valor selecionada!\n")
         else:
             self.__tela_cotacao.mostra_relatorio(cotacoes_filtradas)
-

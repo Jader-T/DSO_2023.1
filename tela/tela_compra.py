@@ -80,36 +80,71 @@ class TelaCompra:
         except Exception as e:
             print('Erro ao exibir dados da loja', repr(e))
 
-
     def pega_data_inicial(self):
+        layout = [
+            [sg.Text("Digite a data inicial no formato dd/mm/aaaa: ")],
+            [sg.Input(key='data_inicial')],
+            [sg.Button('Confirmar')]
+        ]
+
+        window = sg.Window('Filtros do relatório', layout)
+
         while True:
-            try:
-                data_texto = input("Digite a data inicial no formato dd/mm/aaaa: ").strip()
-                data = datetime.strptime(data_texto, '%d/%m/%Y')
-                return data.strptime('%d/%m/%Y')
-            except ValueError:
-                print("Data Inválida. Digite novamente.")
+            event, values = window.read()
+            if event == sg.WINDOW_CLOSED:
+                break
+            elif event == 'Confirmar':
+                data_texto = values['data_inicial']
+                try:
+                    data = datetime.strptime(data_texto, '%d/%m/%Y')
+                    window.close()
+                    return data
+                except ValueError:
+                    sg.Popup('Data invalida. Digite novamente.')
 
     def pega_data_final(self):
+        layout = [
+            [sg.Text("Digite a data final no formato dd/mm/aaaa: ")],
+            [sg.Input(key='data_final')],
+            [sg.Button('Confirmar')]
+        ]
+
+        window = sg.Window('Filtros do relatório', layout)
+
         while True:
-            try:
-                data_texto = input("Digite a data final no formato dd/mm/aaaa: ")
-                data = datetime.strptime(data_texto, '%d/%m/%Y')
-                return data.strptime('%d/%m/%Y')
-            except ValueError:
-                print("Data inválida. Digite novamente.")
+            event, values = window.read()
+            if event == sg.WINDOW_CLOSED:
+                break
+            elif event == 'Confirmar':
+                data_texto = values['data_final']
+                try:
+                    data = datetime.strptime(data_texto, '%d/%m/%Y')
+                    window.close()
+                    return data
+                except ValueError:
+                    sg.Popup('Data invalida. Digite novamente.')
 
     @staticmethod
     def mostra_relatorio(dados_compra):
-        print("="*15, "Relatório de Compras", "="*15)
+        layout = [
+            [sg.Text(text="Relatório de Compras", justification="center", font=('Arial', 16, 'bold'))],
+        ]
+
         for compra in dados_compra:
-            print("Data da compra: ", compra["data"])
-            print("Código da cotação: ", compra["dados_codigo"])
-            print("Produto comprado: ", compra["dados_produto"])
-            print("Preço: ", "R$", compra["dados_preco"])
-            print("Transportadora: ", compra["transportadora"])
-            print("-" * 52)
-        print("="*52)
+            layout.append([sg.Text(f"Data da compra: {compra['data']}", font=('Arial', 14, 'bold'))])
+            layout.append([sg.Text(f"Código da cotação: {compra['dados_codigo']}", font=('Arial', 14, 'bold'))])
+            layout.append([sg.Text(f"Produto comprado: {compra['dados_produto']}", font=('Arial', 14, 'bold'))])
+            layout.append([sg.Text(f"Preço: {compra['dados_preco']}", font=('Arial', 14, 'bold'))])
+            layout.append([sg.Text(f"Transportadora: {compra['transportadora']}", font=('Arial', 14, 'bold'))])
+            layout.append([sg.Text("-" * 90)])
+
+        layout.append([sg.Button("Fechar", font=('Arial', 14, 'bold'))])
+
+        window = sg.Window("Relatório de Compras", layout)
+
+        event, _ = window.read()
+
+        window.close()
 
     def mostra_msg(self, msg):
         sg.Popup(msg, font=('Arial', 14, 'bold'))

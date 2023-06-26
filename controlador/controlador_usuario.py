@@ -2,11 +2,10 @@ from tela.tela_usuario import TelaUsuario
 from modelo.pessoa_fisica import PessoaFisica
 from modelo.pessoa_juridica import PessoaJuridica
 from persistencia.usuarioDAO import UsuarioDAO
-
+from excecoes.usuarioJahExiste import UsuarioJahExiste
 
 class ControladorUsuarios:
     def __init__(self, controlador_sistema):
-        # self.__usuarios = []
         self.__usuario_DAO = UsuarioDAO()
         self.__telaUsuarios = TelaUsuario()
         self.__controlador_sistema = controlador_sistema
@@ -58,14 +57,14 @@ class ControladorUsuarios:
             usuario.cpf = novos_dados_usuario["cpf"]
             usuario.senha = novos_dados_usuario["senha"]
         elif "cnpj" in novos_dados_usuario:
-            tipo_usuario = "cnpj"
+            tipo_usuario = "Pessoa Jurídica"
             self.lista_usuarios(tipo_usuario)
             cnpj_usuario = self.__telaUsuarios.selecionar_usuario_por_cnpj()
             usuario = self.busca_usuario_por_cnpj(cnpj_usuario)
             if usuario is None:
                 self.__telaUsuarios.mostra_mensagem("Usuário não encontrado!")
                 return
-            if not isinstance(usuario, PessoaFisica):
+            if not isinstance(usuario, PessoaJuridica):
                 self.__telaUsuarios.mostra_mensagem("\nNão é possível alterar o tipo do usuário!")
                 return
             usuario.nome = novos_dados_usuario["nome"]
